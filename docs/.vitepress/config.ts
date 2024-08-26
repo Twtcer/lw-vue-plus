@@ -2,7 +2,7 @@ import { defineConfig } from "vitepress"
 
 export default defineConfig({
   title: "lw-vue-plus组件文档",
-  description: "基于vue3和element-plus组件二次封装实例",
+  description: "基于vue3和element-plus二次封装组件实例",
   lang: "cn-ZH",
   base: "/lw-vue-plus/",
   lastUpdated: true,
@@ -39,7 +39,14 @@ export default defineConfig({
     sidebar: {
       "/components": [
         {
-          text: "常用组件",
+          text: "布局组件",
+          items: [
+            { text: "条件筛选", link: "/components/TSelect/base.md" },
+            { text: "整页", link: "/components/TSelect/base.md" },
+          ]
+        },
+        {
+          text: "基础组件",
           items: [
             { text: "下拉选择组件", link: "/components/TSelect/base.md" },
             { text: "详情组件", link: "/components/TDetail/base.md" },
@@ -71,6 +78,13 @@ export default defineConfig({
             { text: "模块表单组件", link: "/components/TModuleForm/base.md" },
             { text: "table组件", link: "/components/TTable/base.md" }
           ]
+        },
+        {
+          text: "数据展示",
+          items: [
+            { text: "Table 表格", link: "components/Table/base.md" },
+
+          ]
         }
       ]
     }
@@ -82,10 +96,10 @@ export default defineConfig({
     // light: #f9fafb, dark: --vp-code-block-bg
     theme: { light: "github-light", dark: "github-dark" },
     config: md => {
-      md.use(demoblockPlugin),
-        {
-          customClass: "demoblock-custom"
-        }
+      // md.use(demoblockPlugin),
+      // {
+      //   customClass: "demoblock-custom"
+      // }
     }
   }
 })

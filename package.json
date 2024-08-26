@@ -3,22 +3,21 @@
   "description": "基于vue3和element-plus的二次封装组件、文档",
   "author": "landwind",
   "private": false,
-  "version": "0.0.1",
-  "main": "lib/lw-vue-plus.umd.cjs",
-  "module": "lib/lw-vue-plus.umd.cjs",
-  "types": "lib/packages/index.d.ts",
+  "version": "0.0.2",
+  "main": "dist/lib/packages/index.js", 
+  "module": "dist/es/packages/index.js", 
+  "types": "dist/es/packages/index.d.ts", 
   "type": "module",
   "license": "MIT",
   "files": [
     "package.json",
     "README.md",
     "LICENSE",
-    "lib",
-    "global.d.ts"
+    "dist"
   ],
   "scripts": {
-    "lib-all": "rimraf lib && run-p type-check build:es build:browser",
-    "lib": "rimraf lib && vite build",
+    "lib-all": "rimraf dist && run-p type-check build:es build:browser",
+    "lib": "rimraf dist && vite build",
     "build:es": "vite build",
     "build:browser": "vite -f iife build",
     "docs:dev": "vitepress dev docs",
@@ -26,7 +25,8 @@
     "type-check": "vue-tsc --noEmit",
     "prettier:lib": "prettier --write \"packages/**/*.{js,ts,json,tsx,css,less,scss,vue,html,md}\"",
     "prettier:docs": "prettier --write \"docs/**/*.{js,ts,json,tsx,css,less,scss,vue,html,md}\"",
-    "npm:publish": "npm publish --access public"
+    "npm:publish": "npm publish --registry https://registry.npmjs.org --access public",
+    "npm:unpublish": "npm unpublish --force --registry https://registry.npmjs.org"
   },
   "devDependencies": {
     "@element-plus/icons-vue": "^2.3.1",
@@ -73,6 +73,9 @@
     "vue": "^3.4.31",
     "vue-tsc": "^2.0.24",
     "vuedraggable": "^4.1.0"
+  },
+  "dependencies": {
+    
   },
   "repository": {
     "type": "git",

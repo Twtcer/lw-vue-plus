@@ -2,18 +2,16 @@
 
 ## 介绍
 
-> 基于 vue3 + element-plus + ts + vite5 二次封装组件
-
-可查看 [详细组件案例文档](https://wocwin.github.io/t-ui-plus/) 预览
+> 基于 vue3 + element-plus + ts + vite5 二次封装组件 
 
 <p align="center">
   <a href="https://github.com/vuejs/vue" target="_blank">
     <img src="https://img.shields.io/badge/vue-3.2.36-brightgreen.svg" alt="vue3">
   </a>
-  <a href="https://gitee.com/wocwin/t-ui-plus/stargazers" target="_blank">
-    <img src="https://gitee.com/wocwin/t-ui-plus/badge/star.svg?theme=dark" alt="t-ui-plus">
+  <a href="https://gitee.com/Twtcer/lw-vue-plus/stargazers" target="_blank">
+    <img src="https://gitee.com/Twtcer/lw-vue-plus/badge/star.svg?theme=dark" alt="t-ui-plus">
   </a>
-   <a href="https://github.com/wocwin/t-ui-plus/stargazers" target="_blank">
+   <a href="https://github.com/Twtcer/lw-vue-plus/stargazers" target="_blank">
     <img src="https://img.shields.io/github/stars/Twtcer/lw-vue-plus.svg" alt="t-ui-plus">
   </a>
    <a href="https://www.npmjs.com/package/@landwind/t-ui-plus" target="_blank">
@@ -123,8 +121,8 @@ pnpm docs:dev
 
 ## 贡献
 
-<a href="https://github.com/wocwin/t-ui-plus/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=wocwin/t-ui-plus" alt="contributors" />
+<a href="https://github.com/Twtcer/lw-vue-plus/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=Twtcer/lw-vue-plus" alt="contributors" />
 </a>
 
  # 参考
@@ -143,4 +141,26 @@ pnpm docs:dev
 - `docs`: 文档变动;
 - `test`: 补充缺失的测试用例或者修正现有的测试用例;
 - `revert`: 回滚操作;
+
+
+## npm发布流程
+ 登录npm 
+
+```
+npm login --registry https://registry.npmjs.org
+```
+ 发布到npm
+
+```
+npm publish --registry https://registry.npmjs.org
+```
+撤销发布版本
+
+```
+# 撤销发布某个版本：package.json中对应version的版本
+npm unpublish --force --registry https://registry.npmjs.org
+```
+
+
+
 
