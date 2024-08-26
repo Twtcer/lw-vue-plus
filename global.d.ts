@@ -1,4 +1,21 @@
 
+import LwLayoutPage from './dist/es/packages/layout-page/src/index.vue'
+import LwLayoutPageItem from './dist/es/packages/layout-page-item/src/index.vue'
+import LwQueryCondition from './dist/es/packages/query-condition/src/index.vue'
+import LwTable from './dist/es/packages/table/src/index.vue'
+import LwForm from './dist/es/packages/form/src/index.vue'
+import LwSelect from './dist/es/packages/select/src/index.vue'
+import LwSelectTable from './dist/es/packages/select-table/src/index.vue'
+import LwDetail from './dist/es/packages/detail/src/index.vue'
+import LwButton from './dist/es/packages/button/src/index.vue'
+import LwStepWizard from './dist/es/packages/step-wizard/src/index.vue'
+import LwTimerButton from './dist/es/packages/button-timer/src/index.vue'
+import LwModuleForm from './dist/es/packages/module-form/src/index.vue'
+import LwAdaptivePage from './dist/es/packages/adaptive-page/src/index.vue'
+import LwDatePicker from './dist/es/packages/date-picker/src/index.vue'
+import LwCheckBox from './dist/es/packages/checkbox/src/index.vue';
+import LwRadio from './dist/es/packages/radio/src/index.vue';
+import LwTabs from './dist/es/packages/tabs/src/index.vue';
 
 // GlobalComponents for Volar
 declare module '@vue/runtime-core' {
@@ -94,6 +111,23 @@ declare module '@vue/runtime-core' {
     ElDescriptionsItem: typeof import('element-plus')['ElDescriptionsItem']
     ElResult: typeof import('element-plus')['ElResult']
     ElSelectV2: typeof import('element-plus')['ElSelectV2']
+    LwAdaptivePage: typeof LwAdaptivePage
+    LwLayoutPage: typeof LwLayoutPage
+    LwLayoutPageItem: typeof LwLayoutPageItem
+    LwForm: typeof LwForm
+    LwButton: typeof LwButton
+    LwTimerButton: typeof LwTimerButton
+    LwRadio: typeof LwRadio
+    LwSelect: typeof LwSelect
+    LwSelectTable: typeof LwSelectTable
+    LwTable: typeof LwTable
+    LwTabs: typeof LwTabs
+    LwStepWizard: typeof LwStepWizard
+    LwModuleForm: typeof LwModuleForm
+    LwQueryCondition: typeof LwQueryCondition
+    LwCheckBox: typeof LwCheckBox
+    LwDatePicker: typeof LwDatePicker
+    LwDetail: typeof LwDetail
  
   }
 

@@ -254,11 +254,11 @@
           </el-table-column>
         </template>
         <!-- 表头合并单元格 -->
-        <t-table-column v-else :key="index + 'm'" :item="item" :align="align" v-bind="$attrs">
+        <lw-table-column v-else :key="index + 'm'" :item="item" :align="align" v-bind="$attrs">
           <template v-for="(index, name) in slots" v-slot:[name]="data">
             <slot :name="name" v-bind="data"></slot>
           </template>
-        </t-table-column>
+        </lw-table-column>
       </template>
       <slot></slot>
       <!-- 操作按钮 -->
@@ -338,7 +338,7 @@ import { computed, ref, watch, useSlots, reactive, onMounted, onUpdated } from "
 // import type { PropType } from "vue"
 import { ElMessage } from "element-plus"
 import Sortable from "sortablejs"
-import TTableColumn from "./table-column.vue"
+import LwTableColumn from "./table-column.vue"
 import SingleEditCell from "./single-edit-cell.vue"
 import ColumnSet from "./column-set.vue"
 import RenderCol from "./render-col.vue"

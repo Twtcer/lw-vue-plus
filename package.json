@@ -4,9 +4,9 @@
   "author": "landwind",
   "private": false,
   "version": "0.0.4",
-  "main": "dist/lib/packages/index.js", 
-  "module": "dist/es/packages/index.js", 
-  "types": "dist/es/packages/index.d.ts", 
+  "main": "dist/lib/index.umd.js",
+  "module": "dist/es/packages/index.js",
+  "types": "dist/es/packages/index.d.ts",
   "type": "module",
   "license": "MIT",
   "files": [
@@ -14,6 +14,9 @@
     "README.md",
     "LICENSE",
     "dist"
+  ],
+  "workspaces":[
+    "packages/*"
   ],
   "scripts": {
     "lib-all": "rimraf dist && run-p type-check build:es build:browser",
@@ -26,7 +29,8 @@
     "prettier:lib": "prettier --write \"packages/**/*.{js,ts,json,tsx,css,less,scss,vue,html,md}\"",
     "prettier:docs": "prettier --write \"docs/**/*.{js,ts,json,tsx,css,less,scss,vue,html,md}\"",
     "npm:publish": "npm publish --registry https://registry.npmjs.org --access public",
-    "npm:unpublish": "npm unpublish --force --registry https://registry.npmjs.org"
+    "npm:unpublish": "npm unpublish --force --registry https://registry.npmjs.org",
+    "npm:publish:private": "npm publish --registry https://npm.landwind.top --access public"
   },
   "devDependencies": {
     "@element-plus/icons-vue": "^2.3.1",
@@ -44,8 +48,8 @@
     "axios": "^1.7.3",
     "chalk": "^5.3.0",
     "consola": "^3.2.3",
+    "echarts": "^5.5.1",
     "element-plus": "^2.7.8",
-    "echarts": "^5.5.1", 
     "escape-html": "^1.0.3",
     "eslint": "^9.8.0",
     "eslint-config-prettier": "^9.1.0",
@@ -69,14 +73,14 @@
     "vite-plugin-compression": "^0.5.1",
     "vite-plugin-dts": "^1.7.3",
     "vite-plugin-vue-setup-extend": "^0.4.0",
-    "vitepress": "^1.3.2", 
+    "vitepress": "^1.3.2",
     "vue": "^3.4.31",
     "vue-tsc": "^2.0.24",
     "vuedraggable": "^4.1.0"
   },
   "peerDependencies": {
-    "vue": "^3.4.31",
-    "element-plus": "^2.7.8"
+    "element-plus": "^2.7.8",
+    "vue": "^3.4.31"
   },
   "repository": {
     "type": "git",
@@ -92,5 +96,10 @@
     "landwind",
     "components",
     "custom-components"
-  ]
+  ],
+  "dependencies": {
+    "fs-extra": "^11.2.0",
+    "rollup-plugin-visualizer": "^5.12.0",
+    "terser": "^5.31.6"
+  }
 }
