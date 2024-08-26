@@ -1,0 +1,17 @@
+{
+  "name": "@landwind/utils",
+  "version": "1.0.0",
+  "description": "utils",
+  "main": "./dist/lib/index.js",
+  "module": "./dist/es/index.js",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "vite build",
+    "release": "release-it"
+  },
+  "keywords": [],
+  "author": "landwind",
+  "license": "MIT"
+}

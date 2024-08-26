@@ -4,40 +4,40 @@
   "author": "landwind",
   "private": false,
   "version": "0.0.4",
-  "main": "dist/lib/index.umd.js",
-  "module": "dist/es/packages/index.js",
-  "types": "dist/es/packages/index.d.ts",
+  "main": "index.js",
   "type": "module",
   "license": "MIT",
-  "files": [
-    "package.json",
-    "README.md",
-    "LICENSE",
-    "dist"
-  ],
-  "workspaces":[
+  "workspaces": [
     "packages/*"
   ],
+  "lint-staged": {
+    "src/**/*.{js,jsx,ts,tsx,vue}": [
+      "eslint --ext .js,.jsx,.vue,.ts,.tsx --fix --quiet ./",
+      "stylelint --fix \"packages/components/src/**/*.{css,less}\""
+    ]
+  },
   "scripts": {
-    "lib-all": "rimraf dist && run-p type-check build:es build:browser",
-    "lib": "rimraf dist && vite build",
-    "build:es": "vite build",
-    "build:browser": "vite -f iife build",
-    "docs:dev": "vitepress dev docs",
-    "docs:build": "vitepress build docs",
-    "type-check": "vue-tsc --noEmit",
-    "prettier:lib": "prettier --write \"packages/**/*.{js,ts,json,tsx,css,less,scss,vue,html,md}\"",
-    "prettier:docs": "prettier --write \"docs/**/*.{js,ts,json,tsx,css,less,scss,vue,html,md}\"",
-    "npm:publish": "npm publish --registry https://registry.npmjs.org --access public",
-    "npm:unpublish": "npm unpublish --force --registry https://registry.npmjs.org",
-    "npm:publish:private": "npm publish --registry https://npm.landwind.top --access public"
+    "docs:dev": "pnpm run --filter site docs:dev",
+    "docs:build": "pnpm run --filter site docs:build",
+    "docs:deploy": "pnpm run --filter site docs:deploy",
+    "build:components": "gulp -f packages/components/script/build/index.ts & pnpm run --filter ./packages/utils build",
+    "publish:components": "gulp -f packages/components/script/publish/index.ts",
+    "publish:utils": "gulp -f packages/utils/publish/index.ts",
+    "play:dev": "pnpm run --filter ./play dev",
+    "lint:script": "eslint --ext .js,.jsx,.vue,.ts,.tsx --fix --quiet ./",
+    "lint:style": "stylelint --fix \"packages/components/src/**/*.{css,less}\"",
+    "prepare": "husky install",
+    "lint-staged": "lint-staged",
+    "type-check": "vue-tsc --noEmit"
   },
   "devDependencies": {
     "@element-plus/icons-vue": "^2.3.1",
+    "@landwind/lw-ui-plus": "workspace:*",
+    "@landwind/utils": "workspace:*",
     "@rollup/plugin-replace": "^5.0.5",
     "@rollup/plugin-terser": "^0.4.4",
+    "@types/gulp": "^4.0.17",
     "@types/node": "^22.1.0",
-    "@types/nprogress": "^0.2.3",
     "@types/path-browserify": "^1.0.0",
     "@typescript-eslint/eslint-plugin": "^8.0.1",
     "@typescript-eslint/parser": "^8.0.1",
@@ -49,25 +49,26 @@
     "chalk": "^5.3.0",
     "consola": "^3.2.3",
     "echarts": "^5.5.1",
-    "element-plus": "^2.7.8",
     "escape-html": "^1.0.3",
     "eslint": "^9.8.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",
     "eslint-plugin-vue": "^9.27.0",
+    "gulp": "^5.0.0",
+    "gulp-autoprefixer": "^9.0.0",
+    "gulp-less": "^5.0.0",
     "jsencrypt": "3.0.0-rc.1",
     "markdown-it": "^13.0.1",
     "markdown-it-container": "^3.0.0",
     "minimist": "^1.2.8",
     "normalize.css": "^8.0.1",
     "npm-run-all": "^4.1.5",
-    "pinia": "^2.2.1",
     "prettier": "^3.3.3",
+    "release-it": "^17.6.0",
     "sass": "^1.77.8",
     "sass-loader": "^16.0.0",
     "sortablejs": "^1.15.0",
     "typescript": "^5.2.2",
-    "unocss": "^0.51.13",
     "unplugin-auto-import": "^0.11.2",
     "vite": "^5.3.4",
     "vite-plugin-compression": "^0.5.1",
@@ -77,10 +78,6 @@
     "vue": "^3.4.31",
     "vue-tsc": "^2.0.24",
     "vuedraggable": "^4.1.0"
-  },
-  "peerDependencies": {
-    "element-plus": "^2.7.8",
-    "vue": "^3.4.31"
   },
   "repository": {
     "type": "git",
@@ -96,10 +93,5 @@
     "landwind",
     "components",
     "custom-components"
-  ],
-  "dependencies": {
-    "fs-extra": "^11.2.0",
-    "rollup-plugin-visualizer": "^5.12.0",
-    "terser": "^5.31.6"
-  }
+  ]
 }
