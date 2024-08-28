@@ -164,7 +164,7 @@ import {
   onUpdated
 } from "vue"
 import { ElMessage } from "element-plus"
-import ClickOutside from "@landwind/utils"
+import ClickOutside from "@lw8/utils"
 const props = defineProps({
   // input输入框的值（modelValue）
   inputValue: {

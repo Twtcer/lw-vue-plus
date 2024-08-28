@@ -31,9 +31,9 @@
     "type-check": "vue-tsc --noEmit"
   },
   "devDependencies": {
+    "@commitlint/cli": "^19.4.1",
+    "@commitlint/config-conventional": "^19.4.1",
     "@element-plus/icons-vue": "^2.3.1",
-    "@landwind/lw-ui-plus": "workspace:*",
-    "@landwind/utils": "workspace:*",
     "@rollup/plugin-replace": "^5.0.5",
     "@rollup/plugin-terser": "^0.4.4",
     "@types/gulp": "^4.0.17",
@@ -57,7 +57,9 @@
     "gulp": "^5.0.0",
     "gulp-autoprefixer": "^9.0.0",
     "gulp-less": "^5.0.0",
+    "husky": "^9.1.5",
     "jsencrypt": "3.0.0-rc.1",
+    "lint-staged": "^15.2.9",
     "markdown-it": "^13.0.1",
     "markdown-it-container": "^3.0.0",
     "minimist": "^1.2.8",

@@ -1,5 +1,5 @@
 {
-  "name": "@landwind/docs",
+  "name": "@lw8/lw-vue-plus-docs",
   "version": "1.0.0",
   "description": "landwind ui components docs",
   "main": "index.js",
@@ -11,13 +11,13 @@
   },
   "type": "module",
   "keywords": [],
-  "author": "",
+  "author": "landwind",
   "license": "MIT",
   "devDependencies": {
     "vitepress": "^1.3.2",
     "vue": "^3.4.31"
   },
   "dependencies": {
-    "@landwind/lw-ui-plus": "workspace: *"
+    "@lw8/lw-vue-plus": "workspace: *"
   }
 }

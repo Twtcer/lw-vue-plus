@@ -16,7 +16,7 @@ export const getConfig =(): UserConfig=>{
       vue(),
       dts({
         entryRoot: 'src',
-        outputDir: ['../lw-ui-plus/es/src','../lw-ui-plus/lib/src'],
+        outputDir: ['../dist/es/src','../dist/lib/src'],
         tsConfigFilePath: '../../tsconfig.json'
 
       }), 
@@ -63,8 +63,7 @@ export const getConfig =(): UserConfig=>{
       rollupOptions: {
         // 请确保外部化那些你的库中不需要的依赖
         external: [
-          'vue',
-          '@landwind/utils'
+          'vue'
           ],
         input: ['index.ts'],
         output:
@@ -76,7 +75,7 @@ export const getConfig =(): UserConfig=>{
             // preserveModules: true,
             exports: 'named',
             //配置打包根目录
-            dir: '../lw-ui-plus/es'
+            dir: '../dist/es'
           },
           {
             format: 'cjs',
@@ -85,15 +84,15 @@ export const getConfig =(): UserConfig=>{
             // preserveModules: true,
             exports: 'named',
             //配置打包根目录
-            dir: '../lw-ui-plus/lib'
+            dir: '../dist/lib'
           }
         ] 
       },
       lib: { 
         entry: './index.ts',
-        name: 'lw-ui-plus',
+        name: 'lw-vue-plus',
         // formats: ['es', 'umd'],
-        // fileName: 'lw-vue-plus'
+        // fileName: 'dist'
       }
     }
   }

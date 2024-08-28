@@ -1,7 +1,7 @@
 {
-  "name": "@landwind/lw-ui-plus-cli",
+  "name": "@lw8/lw-vue-plus-cli",
   "version": "1.0.0",
-  "description": "A cli for lw-ui-plus",
+  "description": "A cli for lw-vue-plus",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

@@ -9,8 +9,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "vue": "^3.4.37",
-    "@landwind/lw-ui-plus": "workspace: *"
+    "@lw8/lw-vue-plus": "workspace: *",
+    "element-plus": "^2.8.1",
+    "vue": "^3.4.37"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.1.2",

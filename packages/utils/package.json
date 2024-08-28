@@ -1,5 +1,5 @@
 {
-  "name": "@landwind/utils",
+  "name": "@lw8/utils",
   "version": "1.0.0",
   "description": "utils",
   "main": "./dist/lib/index.js",

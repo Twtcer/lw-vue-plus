@@ -2,10 +2,10 @@
   "compilerOptions": {
     // "declaration": true,
     // "declarationDir": "lib",
-    "target": "ESNext",
-    "useDefineForClassFields": true,
-    "noImplicitAny": false, // 隐式具有“any”类型
+    "target": "ES2015",
     "module": "ESNext",
+    "useDefineForClassFields": true,
+    "noImplicitAny": false, // 隐式具有“any”类型 
     "moduleResolution": "Node",
     "strict": true,
     "jsx": "preserve",

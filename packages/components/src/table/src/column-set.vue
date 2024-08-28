@@ -54,7 +54,7 @@ const columnBind = computed(() => {
 })
 // 获取缓存数据
 const getColumnSetCache = () => {
-  let value: any = localStorage.getItem(`t-ui-plus:TTable.columnSet-${props.name || props.title}`)
+  let value: any = localStorage.getItem(`lw-vue-plus:TTable.columnSet-${props.name || props.title}`)
   let columnOption = initColumnSet()
   let valueArr = JSON.parse(value) || []
   columnOption.map(item => {
@@ -115,7 +115,7 @@ watch(
     emits("columnSetting", val)
     // console.log(3333, val)
     localStorage.setItem(
-      `t-ui-plus:TTable.columnSet-${props.name || props.title}`,
+      `lw-vue-plus:TTable.columnSet-${props.name || props.title}`,
       JSON.stringify(val)
     )
   },

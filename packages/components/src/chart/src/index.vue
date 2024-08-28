@@ -20,7 +20,7 @@ import {
   useAttrs
 } from "vue"
 import { useResizeObserver } from "@vueuse/core"
-import { debounce, toLine } from "@landwind/utils"
+import { debounce, toLine } from "@lw8/utils"
 import { computed } from "vue"
 const { proxy } = getCurrentInstance() as any
 const props = defineProps({

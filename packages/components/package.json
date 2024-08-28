@@ -1,5 +1,5 @@
 {
-  "name": "@landwind/lw-ui-plus",
+  "name": "@lw8/lw-vue-plus",
   "description": "基于vue3和element-plus封装组件",
   "author": "landwind",
   "private": false,
@@ -30,8 +30,7 @@
     "vue",
     "vite",
     "vitepress",
-    "lw-ui-plus",
-    "landwind",
+    "lw-vue-plus",
     "components",
     "custom-components"
   ]

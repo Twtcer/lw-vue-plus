@@ -2,16 +2,16 @@
 
 ::: tip 提示
 
-@landwind/lw-vue-plus 基于 vue3 + ts + Element-plus 二封装的基础组件
+@lw8/lw-vue-plus 基于 vue3 + ts + Element-plus 二封装的基础组件
 
 :::
 
 ### 安装
 
 ```bash:no-line-numbers
-pnpm add @landwind/lw-vue-plus
+pnpm add @lw8/lw-vue-plus
 &
-npm i @landwind/lw-vue-plus
+npm i @lw8/lw-vue-plus
 ```
 
 ### 全局使用
@@ -28,8 +28,8 @@ import "element-plus/theme-chalk/dark/css-vars.css"
 import locale from "element-plus/es/locale/lang/zh-cn"
 // element-plus图标
 import * as ElementPlusIconsVue from "@element-plus/icons-vue"
-import LwVuePlus from "@landwind/lw-vue-plus"
-import "@landwind/lw-vue-plus/lib/style.css"
+import LwVuePlus from "@lw8/lw-vue-plus"
+import "@lw8/lw-vue-plus/lib/style.css"
 const app = createApp(App)
 // 注册所有图标
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
@@ -48,10 +48,10 @@ app.mount("#app")
 
 ```js
 // 在main.js中按下引入
-import "@landwind/lw-vue-plus/lib/style.css"
+import "@lw8/lw-vue-plus/lib/style.css"
 // 单个.vue文件引入
 ;<script setup lang="ts">
-  import {(TDetail, TForm)} from "@landwind/lw-vue-plus"
+  import {(TDetail, TForm)} from "@lw8/lw-vue-plus"
 </script>
 ```
 
@@ -78,13 +78,13 @@ TChart, // 图表
 TTabs // 标签页
 ```
 
-### T-ui-plus 组件 Volar 类型提示
+### lw-vue-plus 组件 Volar 类型提示
 
 ```js
 // 需要在使用的项目的tsconfig.json文件中添加以下
 compilerOptions：{
   "types": [
-      "@landwind/lw-vue-plus/components.d.ts",
+      "@lw8/lw-vue-plus/components.d.ts",
     ],
 }
 

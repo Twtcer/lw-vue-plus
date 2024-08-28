@@ -9,20 +9,20 @@
     <img src="https://img.shields.io/badge/vue-3.2.36-brightgreen.svg" alt="vue3">
   </a>
   <a href="https://gitee.com/Twtcer/lw-vue-plus/stargazers" target="_blank">
-    <img src="https://gitee.com/Twtcer/lw-vue-plus/badge/star.svg?theme=dark" alt="t-ui-plus">
+    <img src="https://gitee.com/Twtcer/lw-vue-plus/badge/star.svg?theme=dark" alt="lw-vue-plus">
   </a>
    <a href="https://github.com/Twtcer/lw-vue-plus/stargazers" target="_blank">
-    <img src="https://img.shields.io/github/stars/Twtcer/lw-vue-plus.svg" alt="t-ui-plus">
+    <img src="https://img.shields.io/github/stars/Twtcer/lw-vue-plus.svg" alt="lw-vue-plus">
   </a>
-   <a href="https://www.npmjs.com/package/@landwind/t-ui-plus" target="_blank">
-      <img alt="npm" src="https://img.shields.io/npm/v/@landwind/lw-vue-plus.svg" />
+   <a href="https://www.npmjs.com/package/@lw8/lw-vue-plus" target="_blank">
+      <img alt="npm" src="https://img.shields.io/npm/v/@lw8/lw-vue-plus.svg" />
     </a>
 </p>
  
 ## 安装
 
 ```shell
-pnpm i @landwind/lw-vue-plus
+pnpm i @lw8/lw-vue-plus
 ```
 
 ## 全局注册
@@ -39,8 +39,8 @@ import "element-plus/theme-chalk/dark/css-vars.css";
 import locale from "element-plus/es/locale/lang/zh-cn";
 // element-plus图标
 import * as ElementPlusIconsVue from "@element-plus/icons-vue";
-import LwVuePlus from '@landwind/lw-vue-plus'
-import '@landwind/lw-vue-plus/lib/style.css'
+import LwVuePlus from '@lw8/lw-vue-plus'
+import '@lw8/lw-vue-plus/lib/style.css'
 const app = createApp(App)
 // 注册所有图标
   for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
@@ -59,10 +59,10 @@ app.mount('#app')
 
 ```js
 // 在main.js中按下引入
-import '@landwind/lw-ui-plus/lib/style.css'
+import '@lw8/lw-vue-plus/lib/style.css'
 // 单个.vue文件引入
 <script setup lang="ts">
-  import {TDetail, TForm} from "@landwind/lw-vue-plus"
+  import {TDetail, TForm} from "@lw8/lw-vue-plus"
 </script>
 ```
 ## 全部组件如下
@@ -93,7 +93,7 @@ TTabs // 标签页
 // 需要在使用的项目的tsconfig.json文件中添加以下
 compilerOptions：{
   "types": [
-      "@landwind/lw-ui-plus/components.d.ts",
+      "@lw8/lw-vue-plus/components.d.ts",
     ],
 }
 
