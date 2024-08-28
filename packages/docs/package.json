@@ -1,5 +1,5 @@
 {
-  "name": "docs",
+  "name": "@landwind/docs",
   "version": "1.0.0",
   "description": "landwind ui components docs",
   "main": "index.js",

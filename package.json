@@ -1,6 +1,6 @@
 {
-  "name": "@landwind/lw-vue-plus",
-  "description": "基于vue3和element-plus的二次封装组件、文档",
+  "name": "lw-vue-plus",
+  "description": "基于vue3和element-plus的封装组件、文档",
   "author": "landwind",
   "private": false,
   "version": "0.0.4",

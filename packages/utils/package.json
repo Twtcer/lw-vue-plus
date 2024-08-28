@@ -4,6 +4,7 @@
   "description": "utils",
   "main": "./dist/lib/index.js",
   "module": "./dist/es/index.js",
+  "types": "./dist/es/index.d.ts",
   "files": [
     "dist"
   ],

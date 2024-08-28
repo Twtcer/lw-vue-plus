@@ -13,7 +13,7 @@
     "lw-ui-plus",
     "element-plus",
     "components",
-    "landwind"
+    "vue3组件"
   ],
   "author": "landwind",
   "license": "MIT",
