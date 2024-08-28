@@ -9,8 +9,8 @@ import ElementPlus from "unplugin-element-plus/vite";
 // import Components from "unplugin-vue-components/vite";
 // import { ElementPlusResolver } from "unplugin-vue-components/resolvers";
 // @ts-ignore
-import DefineOptions from 'unplugin-vue-define-options/vite';
-// import viteCompression from 'vite-plugin-compression' // 静态资源压缩
+// import DefineOptions from 'unplugin-vue-define-options/vite';
+import viteCompression from 'vite-plugin-compression' // 静态资源压缩
 // import {visualizer} from 'rollup-plugin-visualizer' // 打包后的视图文件
 
 // https://vitejs.dev/config/
@@ -35,36 +35,36 @@ export const getConfig = (): UserConfig => {
       }),
       vueJsx(),
       vueSetupExtend(), 
-      DefineOptions(),
-      {
-        name: "style",
-        generateBundle(config, bundle) {
-          //这里可以获取打包后的文件目录以及代码code
-          const keys = Object.keys(bundle);
+      viteCompression({
+        verbose: true,
+        disable: false, // 不禁用压缩
+        deleteOriginFile: false, // 压缩后是否删除原文件
+        threshold: 10240, // 压缩前最小文件大小
+        algorithm: 'gzip', // 压缩算法
+        ext: '.gz', // 文件类型
+      }),
 
-          for (const key of keys) {
-            const bundler: any = bundle[key as any];
-            //rollup内置方法,将所有输出文件code中的.sass换成.css,因为我们当时没有打包less文件
-
-            this.emitFile({
-              type: "asset",
-              fileName: key, //文件名名不变
-              source: bundler.code.replace(/\.scss/g, ".css")
-            });
-          }
-        }
-      },
-        // viteCompression({
-      //   verbose: true,
-      //   disable: false, // 不禁用压缩
-      //   deleteOriginFile: false, // 压缩后是否删除原文件
-      //   threshold: 10240, // 压缩前最小文件大小
-      //   algorithm: 'gzip', // 压缩算法
-      //   ext: '.gz', // 文件类型
-      // }),
       // visualizer({
       //   open: false
       // }),
+            // {
+      //   name: "style",
+      //   generateBundle(config, bundle) {
+      //     //这里可以获取打包后的文件目录以及代码code
+      //     const keys = Object.keys(bundle);
+
+      //     for (const key of keys) {
+      //       const bundler: any = bundle[key as any];
+      //       //rollup内置方法,将所有输出文件code中的.sass换成.css,因为我们当时没有打包less文件
+
+      //       this.emitFile({
+      //         type: "asset",
+      //         fileName: key, //文件名名不变
+      //         source: bundler.code.replace(/\.scss/g, ".css")
+      //       });
+      //     }
+      //   }
+      // },
     ],
     server: {
       host: "0.0.0.0",
@@ -90,11 +90,11 @@ export const getConfig = (): UserConfig => {
         }
       },
       sourcemap: false, //单独输出sourcemap文件
-      // cssCodeSplit: true, // 强制内联CSS
-      emptyOutDir: false,
+      cssCodeSplit: true, // 强制内联CSS
+      // emptyOutDir: true,
       rollupOptions: {
         // 请确保外部化那些你的库中不需要的依赖
-        external: ["vue", /\.scss/, "@vueuse/core", "element-plus"],
+        external: ["vue", "@vueuse/core", "element-plus"],
         input: ["index.ts"],
         output: [
           {
@@ -119,9 +119,9 @@ export const getConfig = (): UserConfig => {
       },
       lib: {
         entry: "./index.ts",
-        name: "lw-vue-plus"
+        name: "lw-vue-plus",
         // formats: ['es', 'umd'],
-        // fileName: 'dist'
+        fileName: 'lw-vue-plus'
       }
     }
   };

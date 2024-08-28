@@ -3,7 +3,7 @@
   "description": "基于vue3和element-plus的封装组件、文档",
   "author": "landwind",
   "private": false,
-  "version": "0.0.4",
+  "version": "0.0.5",
   "main": "index.js",
   "type": "module",
   "license": "MIT",
@@ -20,8 +20,10 @@
     "docs:dev": "pnpm run --filter site docs:dev",
     "docs:build": "pnpm run --filter site docs:build",
     "docs:deploy": "pnpm run --filter site docs:deploy",
-    "build:components:old": "gulp -f packages/components/script/build/index.ts --require sucrase/register/ts & pnpm run --filter ./packages/utils build",
+
     "build:components": "pnpm run --filter ./packages/components build & pnpm run --filter ./packages/utils build",
+    "build:components:old": "gulp -f packages/components/script/build/index.ts --require sucrase/register/ts & pnpm run --filter ./packages/utils build",
+
     "publish:components": "gulp -f packages/components/script/publish/index.ts --require sucrase/register/ts",
     "publish:utils": "gulp -f packages/utils/publish/index.ts --require sucrase/register/ts",
     "play:dev": "pnpm run --filter ./play dev",

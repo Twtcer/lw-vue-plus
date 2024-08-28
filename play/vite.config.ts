@@ -9,6 +9,8 @@ export default defineConfig({
   plugins: [vue(), DefineOptions(), vueJsx()],
   server: {
     host: '0.0.0.0',
-    hmr: true
+    port: 3050,
+    hmr: true,
+    open: true
   }
 });

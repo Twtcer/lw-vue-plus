@@ -1,13 +1,3 @@
-// import * as components from './index';
-// declare module '@vue/runtime-core' {
-//   export interface GlobalComponents {
-//     LwAdaptivePage: typeof components.LwAdaptivePage;
-//     LwLayoutPage: typeof components.LwLayoutPage;
-//     LwButton: typeof components.LwButton;
-//   }
-// }
-// export {};
-
 import LwLayoutPage from "./layout-page/src/index.vue";
 import LwAdaptivePage from "./adaptive-page/src/index.vue";
 import LwLayoutPageItem from "./layout-page-item/src/index.vue";
@@ -17,7 +7,7 @@ import LwQueryCondition from "./query-condition/src/index.vue";
 import LwModuleForm from "./module-form/src/index.vue";
 import LwDetail from "./detail/src/index.vue";
 
-// form
+// form 
 import LwButton from "./button/src/index.vue";
 import lwTimerButton from "./button-timer/src/index.vue";
 import LwForm from "./form/src/index.vue";
@@ -49,6 +39,6 @@ declare module "vue" {
     LwQueryCondition: typeof LwQueryCondition;
     LwCheckBox: typeof LwCheckBox;
     LwChart: typeof LwChart;
-    LwDetail: typeof LwDetail;
+    LwDetail: typeof LwDetail; 
   }
 }
