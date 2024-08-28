@@ -58,7 +58,7 @@
 </template>
 
 <script setup lang="ts" name="LwDetail">
-import RenderTooltip from "./render-tooltip.vue"
+import RenderTooltip from "./render-tooltip.vue";
 defineProps({
   descColumn: {
     type: Number,
@@ -78,7 +78,7 @@ defineProps({
     type: Array as unknown as any[],
     default: () => []
   }
-})
+});
 /**
  * 下拉数据回显中文过滤器
  * @param [String,Number] value 需要转中文的key值
@@ -88,10 +88,10 @@ defineProps({
  */
 const constantEscape = (value: any, list: any[], key: string | number, label: string | number) => {
   const res = list.find(item => {
-    return item[key] === value
-  })
-  return res && res[label]
-}
+    return item[key] === value;
+  });
+  return res && res[label];
+};
 </script>
 <style lang="scss" scoped>
 .lw_detail {

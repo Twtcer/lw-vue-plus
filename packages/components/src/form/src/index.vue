@@ -173,10 +173,10 @@
   </el-form>
 </template>
 <script setup lang="ts" name="LwForm">
-import RenderComp from "./render.vue"
-import { ElMessage } from "element-plus"
-import { computed, ref, watch, onMounted, getCurrentInstance } from "vue"
-import type { PropType } from "vue"
+import RenderComp from "./render.vue";
+import { ElMessage } from "element-plus";
+import { computed, ref, watch, onMounted, getCurrentInstance } from "vue";
+import type { PropType } from "vue";
 const props = defineProps({
   // 自定义类名
   className: {
@@ -205,171 +205,173 @@ const props = defineProps({
     type: Boolean,
     default: true
   }
-})
+});
 const cEvent: any = computed(() => {
   return (item: { eventHandle: any }, type = "") => {
-    let event = { ...item.eventHandle }
-    let changeEvent = {} as any
+    let event = { ...item.eventHandle };
+    let changeEvent = {} as any;
     Object.keys(event).forEach(v => {
       changeEvent[v] = (e: any, ids: any) => {
         if (type === "t-select-table") {
-          event[v] && event[v](e, ids)
+          event[v] && event[v](e, ids);
         } else {
           if ((typeof e === "number" && e === 0) || e) {
-            event[v] && event[v](e, props.formOpts)
+            event[v] && event[v](e, props.formOpts);
           } else {
-            event[v] && event[v](props.formOpts)
+            event[v] && event[v](props.formOpts);
           }
         }
-      }
-    })
-    return { ...changeEvent }
-  }
-})
+      };
+    });
+    return { ...changeEvent };
+  };
+});
 const selectListType = computed(() => {
   return (item: { list: string | number }) => {
     if (props.formOpts.listTypeInfo) {
-      return props.formOpts.listTypeInfo[item.list]
+      return props.formOpts.listTypeInfo[item.list];
     } else {
-      return []
+      return [];
     }
-  }
-})
+  };
+});
 // 子组件名称
 const compChildName: any = computed(() => {
   return (opt: { type: any }) => {
     switch (opt.type) {
       case "checkbox":
-        return "el-checkbox"
+        return "el-checkbox";
       case "radio":
-        return "el-radio"
+        return "el-radio";
       case "select-arr":
       case "select-obj":
-        return "el-option"
+        return "el-option";
     }
-  }
-})
+  };
+});
 // 子子组件label
 const compChildLabel = computed(() => {
   return (opt: { type: any; arrLabel: any }, value: { [x: string]: any; value: any }) => {
     switch (opt.type) {
       case "radio":
       case "checkbox":
-        return value.value
+        return value.value;
       case "el-select-multiple":
       case "select-arr":
-        return value[opt.arrLabel || "label"]
+        return value[opt.arrLabel || "label"];
       case "select-obj":
-        return value
+        return value;
     }
-  }
-})
+  };
+});
 // 子子组件value
 const compChildValue = computed(() => {
   return (opt: { type: any; arrKey: any }, value: { [x: string]: any; value: any }, key: any) => {
     switch (opt.type) {
       case "radio":
       case "checkbox":
-        return value.value
+        return value.value;
       case "el-select-multiple":
       case "select-arr":
-        return value[opt.arrKey || "key"]
+        return value[opt.arrKey || "key"];
       case "select-obj":
-        return key
+        return key;
     }
-  }
-})
+  };
+});
 // 子子组件文字展示
 const compChildShowLabel = computed(() => {
   return (opt: { type: any; arrLabel: any }, value: { [x: string]: any; label: any }) => {
     switch (opt.type) {
       case "radio":
       case "checkbox":
-        return value.label
+        return value.label;
       case "el-select-multiple":
       case "select-arr":
-        return value[opt.arrLabel || "label"]
+        return value[opt.arrLabel || "label"];
       case "select-obj":
-        return value
+        return value;
     }
-  }
-})
-const colSize = ref(props.widthSize)
+  };
+});
+const colSize = ref(props.widthSize);
 // 获取ref
-const tform: any = ref<HTMLElement | null>(null)
+const tform: any = ref<HTMLElement | null>(null);
 // 获取实例方法
-const instance: any = getCurrentInstance()
+const instance: any = getCurrentInstance();
 // 抛出事件
-const emits = defineEmits(["update:modelValue", "handleEvent", "getRefs"])
+const emits = defineEmits(["update:modelValue", "handleEvent", "getRefs"]);
 watch(
   () => props.formOpts.formData,
   () => {
     // state.form = initForm(opts, true)
     // 将form实例返回到父级
-    emits("update:modelValue", tform.value)
+    emits("update:modelValue", tform.value);
   },
   { deep: true }
-)
+);
 watch(
   () => props.widthSize,
   val => {
     if (val > 6) {
-      ElMessage.warning("widthSize值不能大于6！")
-      colSize.value = 6
+      ElMessage.warning("widthSize值不能大于6！");
+      colSize.value = 6;
     } else {
-      colSize.value = val
+      colSize.value = val;
     }
   },
   { deep: true }
-)
+);
 onMounted(() => {
   // console.log('tform.value.$.exposed--', tform.value.$)
-  const entries = Object.entries(tform.value.$.exposed)
+  const entries = Object.entries(tform.value.$.exposed);
   // console.log('111', entries)
   for (const [key, value] of entries) {
-    instance.exposed[key] = value
+    instance.exposed[key] = value;
   }
   // 默认赋值触发handleEvent事件
-  let event: null = null
-  let item: null = null
+  let event: null = null;
+  let item: null = null;
   props.formOpts.formData &&
     Object.keys(props?.formOpts?.formData).forEach(key => {
       if (props.formOpts.formData[key]) {
         props.formOpts.fieldList.map((val: { value: string; event: null } | any) => {
           if (val.value == key) {
-            event = val.event
-            item = val
+            event = val.event;
+            item = val;
           }
-        })
-        handleEvent(event, props.formOpts.formData[key], item, false)
+        });
+        handleEvent(event, props.formOpts.formData[key], item, false);
       }
-    })
+    });
   // 将form实例返回到父级
-  emits("update:modelValue", tform.value)
-})
+  emits("update:modelValue", tform.value);
+});
 // label与输入框的布局方式
 const getChildWidth = (item: { widthSize: any }) => {
   if (props.formOpts.labelPosition === "top") {
-    return `flex: 0 1 calc((${100 / (item.widthSize || colSize.value)}% - 10px));margin-right:10px;`
+    return `flex: 0 1 calc((${
+      100 / (item.widthSize || colSize.value)
+    }% - 10px));margin-right:10px;`;
   } else {
-    return `flex: 0 1 ${100 / (item.widthSize || colSize.value)}%;`
+    return `flex: 0 1 ${100 / (item.widthSize || colSize.value)}%;`;
   }
-}
+};
 // placeholder的显示
 const getPlaceholder = (row: any) => {
   // console.log(77, row.date)
-  let placeholder
+  let placeholder;
   if (row.comp && typeof row.comp == "string") {
     if (row.comp.includes("input")) {
-      placeholder = "请输入" + row.label
+      placeholder = "请输入" + row.label;
     } else if (row.comp.includes("select") || row.comp.includes("date")) {
-      placeholder = "请选择" + row.label
+      placeholder = "请选择" + row.label;
     } else {
-      placeholder = row.label
+      placeholder = row.label;
     }
   }
-  return placeholder
-}
+  return placeholder;
+};
 // 查询条件change事件
 const handleEvent = (
   type: null,
@@ -386,11 +388,11 @@ const handleEvent = (
     item.type !== "password" &&
     item.type !== "inputNumber"
   ) {
-    props.formOpts.formData[item.value] = props.formOpts.formData[item.value].trim()
+    props.formOpts.formData[item.value] = props.formOpts.formData[item.value].trim();
   }
 
-  emits("handleEvent", type, val)
-}
+  emits("handleEvent", type, val);
+};
 // 自定义校验
 const selfValidate = () => {
   return new Promise((resolve: any, reject: any) => {
@@ -399,43 +401,43 @@ const selfValidate = () => {
         resolve({
           valid,
           formData: props.formOpts.formData
-        })
+        });
       } else {
         reject({
           valid,
           formData: null
-        })
+        });
       }
-    })
-  })
-}
+    });
+  });
+};
 // 获取所有ref
 const getRefs = (el: any, item: any, index: any) => {
-  emits("getRefs", el, item, index)
-}
+  emits("getRefs", el, item, index);
+};
 // 下拉选择表格组件 ref
-const tselecttableref: any = ref({})
+const tselecttableref: any = ref({});
 // 下拉选择表格组件 动态ref
 const handleRef = (el: any, key: any) => {
   if (el) {
-    tselecttableref.value[`tselecttableref-${key}`] = el
+    tselecttableref.value[`tselecttableref-${key}`] = el;
   }
-}
+};
 const selfResetFields = () => {
   // 获取所有下拉选择表格组件
   const refList = Object.keys(tselecttableref.value).filter(item =>
     item.includes("tselecttableref")
-  )
+  );
   if (refList.length > 0 && tselecttableref.value) {
     refList.map(val => {
       // console.log('9999', val)
-      tselecttableref.value[val].clear()
-    })
+      tselecttableref.value[val].clear();
+    });
   }
-  tform.value.resetFields()
-}
+  tform.value.resetFields();
+};
 // 暴露方法出去
-defineExpose({ ...instance.exposed, selfValidate, selfResetFields })
+defineExpose({ ...instance.exposed, selfValidate, selfResetFields });
 </script>
 
 <style lang="scss">

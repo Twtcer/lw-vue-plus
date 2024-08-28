@@ -32,7 +32,7 @@
 </template>
 
 <script setup lang="ts" name="moduleDetail">
-import { computed, useAttrs, useSlots } from "vue"
+import { computed, useAttrs, useSlots } from "vue";
 const props: any = defineProps({
   descData: {
     type: Object,
@@ -43,18 +43,18 @@ const props: any = defineProps({
     type: Boolean,
     default: false
   }
-})
-const slots = useSlots()
-const attrs: any = useAttrs()
+});
+const slots = useSlots();
+const attrs: any = useAttrs();
 const defaultActiveKey = computed({
   get() {
     // console.log(333, Object.keys(props.descData))
-    return Object.keys(props.descData)
+    return Object.keys(props.descData);
   },
   set(val) {
-    return val
+    return val;
   }
-})
+});
 </script>
 <style lang="scss">
 .t_detail {

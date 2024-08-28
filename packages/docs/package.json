@@ -18,6 +18,6 @@
     "vue": "^3.4.31"
   },
   "dependencies": {
-    "@lw8/lw-vue-plus": "workspace: *"
+    "@lw8/lw-vue-plus": "workspace:^"
   }
 }

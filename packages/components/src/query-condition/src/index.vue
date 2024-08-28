@@ -119,9 +119,9 @@
 </template>
 
 <script setup lang="ts" name="LwQueryCondition">
-import RenderComp from "./render-comp.vue"
-import MoreChoose from "./more-choose.vue"
-import { computed, ref, watch, useSlots, onMounted, reactive } from "vue"
+import RenderComp from "./render-comp.vue";
+import MoreChoose from "./more-choose.vue";
+import { computed, ref, watch, useSlots, onMounted, reactive } from "vue";
 
 const props = defineProps({
   opts: {
@@ -212,12 +212,12 @@ const props = defineProps({
     type: Object,
     default: () => ({})
   }
-})
-const slots = useSlots()
+});
+const slots = useSlots();
 // 判断是否使用了某个插槽
 const isShow = (name: string) => {
-  return Object.keys(slots).includes(name)
-}
+  return Object.keys(slots).includes(name);
+};
 const popoverAttrsBind = computed(() => {
   return {
     showTxt: "更多",
@@ -226,19 +226,19 @@ const popoverAttrsBind = computed(() => {
     reverseTxt: "反选",
     clearTxt: "清空",
     ...props.popoverAttrs
-  }
-})
+  };
+});
 // 初始化表单数据
 let queryState = reactive({
   form: Object.keys(props.opts).reduce((acc: any, field: any) => {
-    acc[field] = props.opts[field].defaultVal ?? null
-    return acc
+    acc[field] = props.opts[field].defaultVal ?? null;
+    return acc;
   }, {})
-})
-let colLength = ref(4)
-let showOpen = ref(false)
+});
+let colLength = ref(4);
+let showOpen = ref(false);
 
-let open = ref(false)
+let open = ref(false);
 
 // 查询按钮配置
 const queryAttrs = computed(() => {
@@ -246,90 +246,90 @@ const queryAttrs = computed(() => {
     type: "primary",
     btnTxt: "查询",
     ...props.btnCheckBind
-  }
-})
+  };
+});
 // 重置按钮配置
 const resetAttrs = computed(() => {
-  return { btnTxt: "重置", ...props.btnResetBind }
-})
+  return { btnTxt: "重置", ...props.btnResetBind };
+});
 const originCellLength = computed(() => {
-  let length = 0
+  let length = 0;
   Object.keys(props.opts).forEach(key => {
-    let span = props.opts[key].span || 1
+    let span = props.opts[key].span || 1;
     if ((length % colLength.value) + span > colLength.value) {
-      length += colLength.value - (length % colLength.value)
+      length += colLength.value - (length % colLength.value);
     }
-    length += span
-  })
-  return length
-})
+    length += span;
+  });
+  return length;
+});
 const cOpts = computed(() => {
-  let renderSpan = 0
+  let renderSpan = 0;
   return Object.keys(props.opts).reduce((acc: any, field: any) => {
     let opt = {
       ...props.opts[field]
-    }
+    };
     // 收起、展开操作
     if (showOpen.value) {
-      renderSpan += opt.span ?? 1
+      renderSpan += opt.span ?? 1;
       if (!open.value && renderSpan - 1 >= props.maxVisibleRows * colLength.value) {
-        return acc
+        return acc;
       }
     }
-    opt.dataIndex = field
-    acc[field] = opt
-    return acc
-  }, {})
-})
+    opt.dataIndex = field;
+    acc[field] = opt;
+    return acc;
+  }, {});
+});
 const cellLength: any = computed(() => {
   // 占用单元格长度
-  let length = 0
+  let length = 0;
   Object.keys(props.opts).forEach(key => {
-    let span = props.opts[key].span > 4 ? 4 : props.opts[key].span || 1
-    length += span
-  })
-  return length
-})
+    let span = props.opts[key].span > 4 ? 4 : props.opts[key].span || 1;
+    length += span;
+  });
+  return length;
+});
 const gridAreas = computed(() => {
   // grid布局按钮位置
-  const fields = Object.keys(cOpts.value)
-  let rowIndex = 0
-  let rowSpan = 0
-  const areas: any = [[]]
+  const fields = Object.keys(cOpts.value);
+  let rowIndex = 0;
+  let rowSpan = 0;
+  const areas: any = [[]];
   for (let fieldIndex = 0; fieldIndex < fields.length; fieldIndex++) {
-    const field = fields[fieldIndex]
-    const opt = cOpts.value[field]
-    const span = Math.min(opt.span ?? 1, 4) // 最大4
+    const field = fields[fieldIndex];
+    const opt = cOpts.value[field];
+    const span = Math.min(opt.span ?? 1, 4); // 最大4
     if (rowSpan + span > colLength.value) {
       if (rowSpan < colLength.value) {
-        areas[rowIndex].push(".")
+        areas[rowIndex].push(".");
       }
-      rowSpan = 0
-      areas[++rowIndex] = []
+      rowSpan = 0;
+      areas[++rowIndex] = [];
     }
-    rowSpan += span
+    rowSpan += span;
     for (let index = 0; index < span; index++) {
-      areas[rowIndex].push(field)
+      areas[rowIndex].push(field);
     }
   }
   if (areas[rowIndex].length === colLength.value) {
-    areas.push(Array(colLength.value).fill("submit_btn"))
+    areas.push(Array(colLength.value).fill("submit_btn"));
   } else {
     while (areas[rowIndex].length < colLength.value) {
-      areas[rowIndex].push("submit_btn")
+      areas[rowIndex].push("submit_btn");
     }
   }
   return areas.reduce((acc: string, cur: any[]) => {
-    acc += `'${cur.join(" ")}'\n`
-    return acc
-  }, "")
-})
+    acc += `'${cur.join(" ")}'\n`;
+    return acc;
+  }, "");
+});
 // 引用第三方事件
 const cEvent = computed(() => {
   return (opt: { eventHandle: any; comp: string | string[] }) => {
     // console.log('opt--', opt)
-    let event = { ...opt.eventHandle }
-    let changeEvent = {} as any
+    let event = { ...opt.eventHandle };
+    let changeEvent = {} as any;
     Object.keys(event).forEach(v => {
       changeEvent[v] = (e: any) => {
         if (
@@ -337,240 +337,240 @@ const cEvent = computed(() => {
           opt.comp.includes("picker") ||
           opt.comp.includes("date")
         ) {
-          event[v] && event[v](e, queryState.form)
+          event[v] && event[v](e, queryState.form);
         } else {
           if (e) {
-            event[v] && event[v](e, queryState.form)
+            event[v] && event[v](e, queryState.form);
           } else {
-            event[v] && event[v](queryState.form)
+            event[v] && event[v](queryState.form);
           }
         }
-      }
-    })
-    return { ...changeEvent }
-  }
-})
+      };
+    });
+    return { ...changeEvent };
+  };
+});
 // 初始化表单数据
 const initForm = (opts: any, keepVal = false) => {
   return Object.keys(opts).reduce((acc: any, field) => {
     if (keepVal && queryState.form) {
-      acc[field] = queryState.form[field] ?? opts[field].defaultVal ?? null
+      acc[field] = queryState.form[field] ?? opts[field].defaultVal ?? null;
     } else {
-      acc[field] = opts[field].defaultVal ?? null
+      acc[field] = opts[field].defaultVal ?? null;
     }
-    return acc
-  }, {})
-}
+    return acc;
+  }, {});
+};
 const getColLength = () => {
   // 行列数
-  const width = window.innerWidth
-  let colLength = 4
+  const width = window.innerWidth;
+  let colLength = 4;
   if (width > 1000 && width < 1280) {
-    colLength = 3
+    colLength = 3;
   } else if (width > 768 && width <= 1000) {
-    colLength = 2
+    colLength = 2;
   } else if (width <= 768) {
-    colLength = 1
+    colLength = 1;
   }
-  return colLength
-}
-const emits = defineEmits(["handleEvent", "submit", "reset", "getCheckList"])
+  return colLength;
+};
+const emits = defineEmits(["handleEvent", "submit", "reset", "getCheckList"]);
 // 下拉选择表格组件 ref
-const tselecttableref: any = ref({})
+const tselecttableref: any = ref({});
 // 下拉选择表格组件 动态ref
 const handleRef = (el: any, key: any) => {
   if (el) {
-    tselecttableref.value[`tselecttableref-${key}`] = el
+    tselecttableref.value[`tselecttableref-${key}`] = el;
   }
-}
+};
 // 重置
 const resetHandle = () => {
-  queryState.form = initForm(props.opts)
+  queryState.form = initForm(props.opts);
   // 获取所有下拉选择表格组件
   const refList = Object.keys(tselecttableref.value).filter(item =>
     item.includes("tselecttableref")
-  )
+  );
   if (refList.length > 0 && tselecttableref.value) {
     refList.map(val => {
       // console.log('9999', val)
-      tselecttableref.value[val].clear()
-    })
+      tselecttableref.value[val].clear();
+    });
   }
-  emits("reset", queryState.form)
-  checkHandle("reset")
-}
+  emits("reset", queryState.form);
+  checkHandle("reset");
+};
 // 重置数据
 const resetData = () => {
-  queryState.form = initForm(props.opts)
+  queryState.form = initForm(props.opts);
   // 获取所有下拉选择表格组件
   const refList = Object.keys(tselecttableref.value).filter(item =>
     item.includes("tselecttableref")
-  )
+  );
   if (refList.length > 0 && tselecttableref.value) {
     refList.map(val => {
       // console.log('9999', val)
-      tselecttableref.value[val].clear()
-    })
+      tselecttableref.value[val].clear();
+    });
   }
-}
+};
 // 查询条件change事件
 const handleEvent = (type: any, val: any) => {
-  emits("handleEvent", type, val, queryState.form)
-}
+  emits("handleEvent", type, val, queryState.form);
+};
 // 查询
 const checkHandle = (flagText: any = false) => {
-  emits("submit", queryState.form, flagText)
-}
+  emits("submit", queryState.form, flagText);
+};
 // 子组件名称
 const compChildName: any = computed(() => {
   return (opt: any) => {
     switch (opt.type) {
       case "checkbox":
-        return "el-checkbox"
+        return "el-checkbox";
       case "radio":
-        return "el-radio"
+        return "el-radio";
       case "select-arr":
       case "select-obj":
-        return "el-option"
+        return "el-option";
     }
-  }
-})
+  };
+});
 // 下拉数据
 const selectListType = computed(() => {
   return (opt: any) => {
     if (opt.listTypeInfo) {
-      return opt.listTypeInfo[opt.list]
+      return opt.listTypeInfo[opt.list];
     } else {
-      return []
+      return [];
     }
-  }
-})
+  };
+});
 // 子子组件label
 const compChildLabel = computed(() => {
   return (opt: { type: any; arrLabel: any }, value: { [x: string]: any; value: any }) => {
     switch (opt.type) {
       case "radio":
       case "checkbox":
-        return value.value
+        return value.value;
       case "el-select-multiple":
       case "select-arr":
-        return value[opt.arrLabel || "label"]
+        return value[opt.arrLabel || "label"];
       case "select-obj":
-        return value
+        return value;
     }
-  }
-})
+  };
+});
 // 子子组件value
 const compChildValue = computed(() => {
   return (opt: { type: any; arrKey: any }, value: { [x: string]: any; value: any }, key: any) => {
     switch (opt.type) {
       case "radio":
       case "checkbox":
-        return value.value
+        return value.value;
       case "el-select-multiple":
       case "select-arr":
-        return value[opt.arrKey || "key"]
+        return value[opt.arrKey || "key"];
       case "select-obj":
-        return key
+        return key;
     }
-  }
-})
+  };
+});
 // 子子组件文字展示
 const compChildShowLabel = computed(() => {
   return (opt: { type: any; arrLabel: any }, value: { [x: string]: any; label: any }) => {
     switch (opt.type) {
       case "radio":
       case "checkbox":
-        return value.label
+        return value.label;
       case "el-select-multiple":
       case "select-arr":
-        return value[opt.arrLabel || "label"]
+        return value[opt.arrLabel || "label"];
       case "select-obj":
-        return value
+        return value;
     }
-  }
-})
+  };
+});
 // placeholder的显示
 const getPlaceholder = (row: any) => {
   // console.log(77, row)
-  let placeholder
+  let placeholder;
   if (row.comp && typeof row.comp == "string") {
     if (row.comp.includes("input")) {
-      placeholder = "请输入" + row.label
+      placeholder = "请输入" + row.label;
     } else if (row.comp.includes("select") || row.comp.includes("date")) {
-      placeholder = "请选择" + row.label
+      placeholder = "请选择" + row.label;
     } else {
-      placeholder = row.label
+      placeholder = row.label;
     }
   }
-  return placeholder
-}
+  return placeholder;
+};
 onMounted(() => {
   // 是否显示展开按钮
   if (props.isShowOpen) {
-    showOpen.value = true
+    showOpen.value = true;
   } else {
-    showOpen.value = false
+    showOpen.value = false;
   }
   // 默认展开
   if (props.isExpansion) {
-    open.value = true
+    open.value = true;
   } else {
-    open.value = false
+    open.value = false;
   }
   if (props.isShowWidthSize) {
-    colLength.value = props.widthSize
+    colLength.value = props.widthSize;
   } else {
-    colLength.value = getColLength()
+    colLength.value = getColLength();
   }
   if (props.boolEnter) {
     document.onkeyup = e => {
       // console.log(7777, e)
-      let key = e.keyCode
-      let pagination = document.querySelectorAll(".el-pagination")
-      let isPaginationInputFocus = false
+      let key = e.keyCode;
+      let pagination = document.querySelectorAll(".el-pagination");
+      let isPaginationInputFocus = false;
       if (pagination) {
         pagination.forEach(ele => {
-          let paginationInputList = ele.getElementsByTagName("input")
-          let paginationInput = paginationInputList[paginationInputList.length - 1]
+          let paginationInputList = ele.getElementsByTagName("input");
+          let paginationInput = paginationInputList[paginationInputList.length - 1];
           // 判断是否有分页器筛选输入框获取焦点
           if (paginationInput === document.activeElement) {
-            isPaginationInputFocus = true
+            isPaginationInputFocus = true;
           }
-        })
+        });
       }
       if (isPaginationInputFocus) {
-        return
+        return;
       }
       if (key === 13) {
-        checkHandle()
+        checkHandle();
       }
-    }
+    };
   }
   // 使用自定义按钮插槽默认展开所有查询条件
   if (isShow("footerBtn") || !props.isFooter) {
     // console.log("使用自定义按钮插槽默认展开所有查询条件", props.isFooter)
-    open.value = true
+    open.value = true;
   }
   // 以下拉方式展示更多条件禁用展开&收起功能
   if (props.isDropDownSelectMore) {
-    open.value = true
-    showOpen.value = false
+    open.value = true;
+    showOpen.value = false;
   }
-})
+});
 watch(
   () => props.widthSize,
   val => {
-    colLength.value = val
+    colLength.value = val;
   }
-)
+);
 watch(
   () => props.opts,
   opts => {
-    queryState.form = initForm(opts, !props.configChangedReset)
+    queryState.form = initForm(opts, !props.configChangedReset);
   },
   { deep: true }
-)
+);
 
 // 暴露方法出去
 defineExpose({
@@ -580,7 +580,7 @@ defineExpose({
   resetData,
   resetHandle,
   checkHandle
-})
+});
 </script>
 
 <style lang="scss">

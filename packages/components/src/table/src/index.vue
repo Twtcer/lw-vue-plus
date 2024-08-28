@@ -334,22 +334,22 @@
 </template>
 
 <script setup lang="ts" name="LwTable">
-import { computed, ref, watch, useSlots, reactive, onMounted, onUpdated } from "vue"
+import { computed, ref, watch, useSlots, reactive, onMounted, onUpdated } from "vue";
 // import type { PropType } from "vue"
-import { ElMessage } from "element-plus"
-import Sortable from "sortablejs"
-import LwTableColumn from "./table-column.vue"
-import SingleEditCell from "./single-edit-cell.vue"
-import ColumnSet from "./column-set.vue"
-import RenderCol from "./render-col.vue"
-import RenderHeader from "./render-header.vue"
+import { ElMessage } from "element-plus";
+import Sortable from "sortablejs";
+import LwTableColumn from "./table-column.vue";
+import SingleEditCell from "./single-edit-cell.vue";
+import ColumnSet from "./column-set.vue";
+import RenderCol from "./render-col.vue";
+import RenderHeader from "./render-header.vue";
 
 const props: any = defineProps({
   // table所需数据
   table: {
     type: Object,
     default: () => {
-      return {}
+      return {};
     },
     required: true
   },
@@ -357,7 +357,7 @@ const props: any = defineProps({
   columns: {
     type: Array,
     default: () => {
-      return []
+      return [];
     }
     // required: true
   },
@@ -365,7 +365,7 @@ const props: any = defineProps({
   btnPermissions: {
     type: Array,
     default: () => {
-      return []
+      return [];
     }
   },
   // 表格标题
@@ -439,25 +439,25 @@ const props: any = defineProps({
   isSlotToolbar: Boolean,
   // TAdaptivePage组件是否使用了title插槽
   isSlotTitle: Boolean
-})
+});
 // 初始化数据
 let state = reactive({
   tableData: props.table.data,
   columnSet: [],
   copyTableData: [] // 键盘事件
-})
+});
 // 单选框
-const radioVal = ref(null)
+const radioVal = ref(null);
 // 判断单选选中及取消选中
-const forbidden = ref(true)
+const forbidden = ref(true);
 // 获取el-table ref
-const TTable: any = ref<HTMLElement | null>(null)
+const TTable: any = ref<HTMLElement | null>(null);
 // 获取t-table ref
-const LwTableBox: any = ref<HTMLElement | null>(null)
+const LwTableBox: any = ref<HTMLElement | null>(null);
 // 获取columnSet Ref
-const columnSetRef: any = ref<HTMLElement | null>(null)
+const columnSetRef: any = ref<HTMLElement | null>(null);
 // 获取form ref
-const formRef: any = ref({})
+const formRef: any = ref({});
 // 动态form ref
 const handleRef = (
   el: any,
@@ -465,11 +465,11 @@ const handleRef = (
   item: { prop: any }
 ) => {
   if (el) {
-    formRef.value[`formRef-${scope.$index}-${item.prop || scope.column.property}`] = el
+    formRef.value[`formRef-${scope.$index}-${item.prop || scope.column.property}`] = el;
   }
-}
+};
 // 获取所有单元格编辑组件 ref
-const editTableRef: any = ref({})
+const editTableRef: any = ref({});
 // 动态单元格编辑组件 ref
 const handleEditTableRef = (
   el: any,
@@ -477,9 +477,9 @@ const handleEditTableRef = (
   item: { prop: any }
 ) => {
   if (el) {
-    editTableRef.value[`singleEditRef-${scope.$index}-${item.prop || scope.column.property}`] = el
+    editTableRef.value[`singleEditRef-${scope.$index}-${item.prop || scope.column.property}`] = el;
   }
-}
+};
 // 抛出事件
 const emits = defineEmits([
   "save",
@@ -488,37 +488,37 @@ const emits = defineEmits([
   "radioChange",
   "rowSort",
   "validateError"
-])
+]);
 // 获取所有插槽
-const slots = useSlots()
+const slots = useSlots();
 watch(
   () => props.table.data,
   val => {
     // console.log(111, val)
-    state.tableData = val
+    state.tableData = val;
   },
   { deep: true }
-)
+);
 onMounted(() => {
   // console.log('onMounted', props.table.firstColumn)
   // 设置默认选中项（单选）
   if (props.defaultRadioCol) {
-    defaultRadioSelect(props.defaultRadioCol)
+    defaultRadioSelect(props.defaultRadioCol);
   }
-  initSort()
-})
+  initSort();
+});
 onUpdated(() => {
-  TTable.value.doLayout()
-})
+  TTable.value.doLayout();
+});
 // 默认选中（单选项）---index必须是大于等于1（且只能默认选中第一页的数据）
 const defaultRadioSelect = (index: number | any) => {
-  radioVal.value = index
-  emits("radioChange", state.tableData[index - 1], radioVal.value)
-}
+  radioVal.value = index;
+  emits("radioChange", state.tableData[index - 1], radioVal.value);
+};
 // 行拖拽
 const initSort = () => {
-  if (!props.isRowSort) return
-  const el = LwTableBox.value.querySelector(".el-table__body-wrapper tbody")
+  if (!props.isRowSort) return;
+  const el = LwTableBox.value.querySelector(".el-table__body-wrapper tbody");
   // console.log('3333', el)
   Sortable.create(el, {
     animation: 150, // 动画
@@ -528,12 +528,12 @@ const initSort = () => {
     // ghostClass: 'ghostClass', // 设置拖拽停靠样式类名
     // chosenClass: 'chosenClass', // 设置选中样式类名
     onEnd: (evt: { oldIndex: any; newIndex: any }) => {
-      const curRow = state.tableData.splice(evt.oldIndex, 1)[0]
-      state.tableData.splice(evt.newIndex, 0, curRow)
-      emits("rowSort", state.tableData)
+      const curRow = state.tableData.splice(evt.oldIndex, 1)[0];
+      state.tableData.splice(evt.newIndex, 0, curRow);
+      emits("rowSort", state.tableData);
     }
-  })
-}
+  });
+};
 
 // 过滤字典
 /**
@@ -545,278 +545,278 @@ const initSort = () => {
  */
 const constantEscape = (value: any, list: any[], key: string | number, label: string | number) => {
   const res = list.find(item => {
-    return item[key] === value
-  })
-  return res && res[label]
-}
+    return item[key] === value;
+  });
+  return res && res[label];
+};
 // // 第一列单选显示类
 const radioStyleClass = computed(() => {
   if (Array.isArray(props.table.firstColumn)) {
-    return props.table.firstColumn.some((item: { type: string }) => item.type === "radio")
+    return props.table.firstColumn.some((item: { type: string }) => item.type === "radio");
   } else {
-    return props.table.firstColumn && props.table.firstColumn.type === "radio"
+    return props.table.firstColumn && props.table.firstColumn.type === "radio";
   }
-})
+});
 // 单元格编辑是否存在校验
 const isEditRules = computed(() => {
   return (
     (props.table.rules && Object.keys(props.table.rules).length > 0) ||
     props.columns.some((item: any) => item?.configEdit?.rules)
-  )
-})
+  );
+});
 // 所有列（表头数据）
 const renderColumns = computed(() => {
   return state.columnSet.length > 0
     ? state.columnSet.reduce((acc: any, cur: any) => {
         if (!cur.hidden) {
           let columnByProp: any = props.columns.reduce((acc: any, cur: any) => {
-            acc[cur.prop] = cur
-            return acc
-          }, {})
-          acc.push(columnByProp[cur.prop])
+            acc[cur.prop] = cur;
+            return acc;
+          }, {});
+          acc.push(columnByProp[cur.prop]);
         }
         // console.log('columnSet', acc)
-        return acc
+        return acc;
       }, [])
-    : props.columns
-})
+    : props.columns;
+});
 // 判断是否是多级表头
 const isTableHeader = computed(() => {
-  return renderColumns.value.some((item: any) => item.children)
-})
+  return renderColumns.value.some((item: any) => item.children);
+});
 // 判断如果有表头合并就自动开启单元格缩放
 const isTableBorder = computed(() => {
-  return props.columns.some((item: any) => item.children)
-})
+  return props.columns.some((item: any) => item.children);
+});
 // 单元格编辑键盘事件
 const handleKeyup = (event: { keyCode: number }, index: number, key: string) => {
-  if (!props.isKeyup) return
-  state.copyTableData = JSON.parse(JSON.stringify(state.tableData))
+  if (!props.isKeyup) return;
+  state.copyTableData = JSON.parse(JSON.stringify(state.tableData));
   // 向上键
   if (event.keyCode === 38) {
-    let doms = document.getElementsByClassName(key)
+    let doms = document.getElementsByClassName(key);
     if (!index) {
-      index = state.copyTableData.length
+      index = state.copyTableData.length;
     }
     if (doms.length) {
-      let dom
+      let dom;
       if (doms[index - 1].getElementsByTagName("input")[0]) {
-        dom = doms[index - 1].getElementsByTagName("input")[0]
+        dom = doms[index - 1].getElementsByTagName("input")[0];
       } else {
-        dom = doms[index - 1].getElementsByTagName("textarea")[0]
+        dom = doms[index - 1].getElementsByTagName("textarea")[0];
       }
-      dom.focus()
+      dom.focus();
       // dom.select()
     }
   }
   // 向下键
   if (event.keyCode === 40) {
-    let doms = document.getElementsByClassName(key)
+    let doms = document.getElementsByClassName(key);
     if (+index === state.copyTableData.length - 1) {
-      index = -1
+      index = -1;
     }
     if (doms.length) {
-      let dom
+      let dom;
       if (doms[index + 1].getElementsByTagName("input")[0]) {
-        dom = doms[index + 1].getElementsByTagName("input")[0]
+        dom = doms[index + 1].getElementsByTagName("input")[0];
       } else {
-        dom = doms[index + 1].getElementsByTagName("textarea")[0]
+        dom = doms[index + 1].getElementsByTagName("textarea")[0];
       }
-      dom.focus()
+      dom.focus();
       // dom.select()
     }
   }
   // 回车横向 向右移动
   if (event.keyCode === 13) {
-    let keyName = props.columns.map((val: any) => val.prop)
-    let num = 0
+    let keyName = props.columns.map((val: any) => val.prop);
+    let num = 0;
     if (key === keyName[keyName.length - 1]) {
       if (index === state.copyTableData.length - 1) {
-        index = 0
+        index = 0;
       } else {
-        ++index
+        ++index;
       }
     } else {
       keyName.map((v: string, i: number) => {
         if (v === key) {
-          num = i + 1
+          num = i + 1;
         }
-      })
+      });
     }
-    let doms = document.getElementsByClassName(keyName[num])
+    let doms = document.getElementsByClassName(keyName[num]);
     if (doms.length) {
-      let dom
+      let dom;
       if (doms[index].getElementsByTagName("input")[0]) {
-        dom = doms[index].getElementsByTagName("input")[0]
+        dom = doms[index].getElementsByTagName("input")[0];
       } else {
-        dom = doms[index].getElementsByTagName("textarea")[0]
+        dom = doms[index].getElementsByTagName("textarea")[0];
       }
-      dom.focus()
+      dom.focus();
       // dom.select()
     }
   }
-}
+};
 // forbidden取值（选择单选或取消单选）
 const isForbidden = () => {
-  forbidden.value = false
+  forbidden.value = false;
   setTimeout(() => {
-    forbidden.value = true
-  }, 0)
-}
+    forbidden.value = true;
+  }, 0);
+};
 // 单选抛出事件radioChange
 const radioClick = (row: any, index: any) => {
-  forbidden.value = !!forbidden.value
+  forbidden.value = !!forbidden.value;
   if (radioVal.value) {
     if (radioVal.value === index) {
-      radioVal.value = null
-      isForbidden()
+      radioVal.value = null;
+      isForbidden();
       // 取消勾选就把回传数据清除
-      emits("radioChange", null, radioVal.value)
+      emits("radioChange", null, radioVal.value);
     } else {
-      isForbidden()
-      radioVal.value = index
-      emits("radioChange", row, radioVal.value)
+      isForbidden();
+      radioVal.value = index;
+      emits("radioChange", row, radioVal.value);
     }
   } else {
-    isForbidden()
-    radioVal.value = index
-    emits("radioChange", row, radioVal.value)
+    isForbidden();
+    radioVal.value = index;
+    emits("radioChange", row, radioVal.value);
   }
-}
+};
 // 点击单选框单元格触发事件
 const radioHandleChange = (row: any, index: any) => {
   if (props.rowClickRadio) {
-    return
+    return;
   }
-  radioClick(row, index)
-}
+  radioClick(row, index);
+};
 // 点击某行事件
 const rowClick = (row: any) => {
   if (!props.rowClickRadio) {
-    return
+    return;
   }
-  radioClick(row, state.tableData.indexOf(row) + 1)
-}
+  radioClick(row, state.tableData.indexOf(row) + 1);
+};
 // 复制内容
 const copyDomText = (val: any) => {
   // 获取需要复制的元素以及元素内的文本内容
-  const text = val
+  const text = val;
   // 添加一个input元素放置需要的文本内容
-  const input = document.createElement("input")
-  input.value = text
-  document.body.appendChild(input)
+  const input = document.createElement("input");
+  input.value = text;
+  document.body.appendChild(input);
   // 选中并复制文本到剪切板
-  input.select()
-  document.execCommand("copy")
+  input.select();
+  document.execCommand("copy");
   // 移除input元素
-  document.body.removeChild(input)
-}
+  document.body.removeChild(input);
+};
 // 双击复制单元格内容
 const cellDblclick = (row: { [x: string]: any }, column: { property: string | number }) => {
   if (!props.isCopy) {
-    return false
+    return false;
   }
   try {
-    copyDomText(row[column.property])
-    ElMessage.success("复制成功")
+    copyDomText(row[column.property]);
+    ElMessage.success("复制成功");
   } catch (e) {
-    ElMessage.error("复制失败")
+    ElMessage.error("复制失败");
   }
-}
+};
 // 判断是否使用了某个插槽
 const isShow = (name: string) => {
-  return Object.keys(slots).includes(name)
-}
+  return Object.keys(slots).includes(name);
+};
 
 // 整行编辑返回数据
 const save = () => {
   if (!isEditRules.value) {
-    emits("save", state.tableData)
-    return
+    emits("save", state.tableData);
+    return;
   }
   // 表单规则校验
-  let successLength = 0
-  let rulesList: any = []
-  let rulesError: any = []
-  let propError: any = []
-  let propLabelError: any = []
+  let successLength = 0;
+  let rulesList: any = [];
+  let rulesError: any = [];
+  let propError: any = [];
+  let propLabelError: any = [];
   // 获取所有的form ref
-  const refList = Object.keys(formRef.value).filter(item => item.includes("formRef"))
+  const refList = Object.keys(formRef.value).filter(item => item.includes("formRef"));
   // 获取单独设置规则项
   const arr = renderColumns.value
     .filter((val: { configEdit: { rules: any } }) => {
       if (val.configEdit?.rules) {
-        return val
+        return val;
       }
     })
-    .map((item: { prop: any }) => item.prop)
+    .map((item: { prop: any }) => item.prop);
   // 获取整体设置规则
-  const arr1 = props.table.rules && Object.keys(props.table.rules)
+  const arr1 = props.table.rules && Object.keys(props.table.rules);
   // 获取最终设置了哪些规则（其值是设置的--prop）
-  const newArr = [...arr, ...arr1]
+  const newArr = [...arr, ...arr1];
   // 最终需要校验的ref
   newArr.map(val => {
     refList.map((item: any) => {
       if (item.includes(val)) {
-        rulesList.push(item)
+        rulesList.push(item);
       }
-    })
-  })
+    });
+  });
   // console.log('最终需要校验的数据', rulesList, formRef.value)
   // 表单都校验
   rulesList.map((val: string | number) => {
     formRef.value[val].validate((valid: any) => {
       if (valid) {
-        successLength = successLength + 1
+        successLength = successLength + 1;
       } else {
-        rulesError.push(val)
+        rulesError.push(val);
       }
-    })
-  })
+    });
+  });
   setTimeout(() => {
     // 所有表单都校验成功
     if (successLength == rulesList.length) {
       if (isEditRules.value) {
         // console.log('所有表单都校验成功--', state.tableData)
-        emits("save", state.tableData)
+        emits("save", state.tableData);
       }
     } else {
       // 校验未通过的prop
       rulesError.map((item: string | any[]) => {
         newArr.map(val => {
           if (item.includes(val)) {
-            propError.push(val)
+            propError.push(val);
           }
-        })
-      })
+        });
+      });
       // 去重获取校验未通过的prop--label
       Array.from(new Set(propError)).map(item => {
         renderColumns.value.map((val: { prop: unknown; label: any }) => {
           if (item === val.prop) {
-            propLabelError.push(val.label)
+            propLabelError.push(val.label);
           }
-        })
-      })
-      console.log("校验未通过的prop--label", propLabelError)
-      emits("validateError", propLabelError)
+        });
+      });
+      console.log("校验未通过的prop--label", propLabelError);
+      emits("validateError", propLabelError);
     }
-  }, 300)
-}
+  }, 300);
+};
 // 是否显示表格操作按钮
 const checkIsShow = (
   scope: { row: { [s: string]: unknown } | ArrayLike<unknown> | any },
   item: {
-    noshow: any
-    show: { val: string | any[]; key: string | number }
-    hasPermi: any
-    field: string | number
-    isField: string | number
+    noshow: any;
+    show: { val: string | any[]; key: string | number };
+    hasPermi: any;
+    field: string | number;
+    isField: string | number;
   }
 ) => {
-  let isNoshow = false
+  let isNoshow = false;
   if (item.noshow) {
     // 解决双重判断循环递归
-    let nushowFun = JSON.parse(JSON.stringify(item.noshow))
+    let nushowFun = JSON.parse(JSON.stringify(item.noshow));
     // 双重判断
     nushowFun.map((rs: { isShow: string; val: string | any[]; key: string | number }) => {
       rs.isShow =
@@ -827,27 +827,27 @@ const checkIsShow = (
               : "false"
             : "true"
           : rs.val.includes(scope.row[rs.key])
-            ? "false"
-            : "true"
-    })
+          ? "false"
+          : "true";
+    });
     isNoshow = nushowFun.every((key: { isShow: string }) => {
-      return key.isShow === "true"
-    })
+      return key.isShow === "true";
+    });
   } else {
-    isNoshow = true
+    isNoshow = true;
   }
   // 单独判断
-  let isShow = !item.show || item.show.val.includes(scope.row[item.show.key])
+  let isShow = !item.show || item.show.val.includes(scope.row[item.show.key]);
   // 按钮权限
-  let isPermission = item.hasPermi ? props.btnPermissions?.includes(item.hasPermi) : true
+  let isPermission = item.hasPermi ? props.btnPermissions?.includes(item.hasPermi) : true;
   // table页面合计
   let totalTxt = Object.values(scope.row).every(key => {
-    return key !== "当页合计"
-  })
+    return key !== "当页合计";
+  });
   // table页面合计
   let totalTxt1 = Object.values(scope.row).every(key => {
-    return key !== "全部合计"
-  })
+    return key !== "全部合计";
+  });
   return (
     isShow &&
     isNoshow &&
@@ -856,172 +856,174 @@ const checkIsShow = (
     totalTxt &&
     totalTxt1 &&
     isPermission
-  )
-}
+  );
+};
 // 单个编辑事件
 const handleEvent = ({ type, val }: any, index: any) => {
-  emits("handleEvent", type, val, index)
-}
+  emits("handleEvent", type, val, index);
+};
 // 当前页码
 const handlesCurrentChange = (val: any) => {
-  emits("page-change", val)
-}
+  emits("page-change", val);
+};
 /**
  * 公共方法
  */
 // 单元格编辑调用save方法返回数据
 const saveMethod = (callback: (arg0: any) => any) => {
   if (!isEditRules.value) {
-    callback && callback(state.tableData)
-    return
+    callback && callback(state.tableData);
+    return;
   }
   // 表单规则校验
-  let successLength = 0
-  let rulesList: any = []
-  let rulesError: any = []
-  let propError: any = []
-  let propLabelError: any = []
+  let successLength = 0;
+  let rulesList: any = [];
+  let rulesError: any = [];
+  let propError: any = [];
+  let propLabelError: any = [];
   // 获取所有的form ref
-  const refList = Object.keys(formRef.value).filter(item => item.includes("formRef"))
+  const refList = Object.keys(formRef.value).filter(item => item.includes("formRef"));
   // 获取单独设置规则项
   const arr = renderColumns.value
     .filter((val: { configEdit: { rules: any } }) => {
       if (val.configEdit?.rules) {
-        return val
+        return val;
       }
     })
-    .map((item: { prop: any }) => item.prop)
+    .map((item: { prop: any }) => item.prop);
   // 获取整体设置规则
-  const arr1 = props.table.rules && Object.keys(props.table.rules)
+  const arr1 = props.table.rules && Object.keys(props.table.rules);
   // 获取最终设置了哪些规则（其值是设置的--prop）
-  const newArr = [...arr, ...arr1]
+  const newArr = [...arr, ...arr1];
   // 最终需要校验的ref
   newArr.map(val => {
     refList.map((item: any) => {
       if (item.includes(val)) {
-        rulesList.push(item)
+        rulesList.push(item);
       }
-    })
-  })
+    });
+  });
   // console.log('最终需要校验的数据', rulesList, formRef.value)
   // 表单都校验
   rulesList.map((val: string | number) => {
     formRef.value[val].validate((valid: any) => {
       if (valid) {
-        successLength = successLength + 1
+        successLength = successLength + 1;
       } else {
-        rulesError.push(val)
+        rulesError.push(val);
       }
-    })
-  })
+    });
+  });
   setTimeout(() => {
     // 所有表单都校验成功
     if (successLength == rulesList.length) {
       if (isEditRules.value) {
         // console.log('所有表单都校验成功--', state.tableData)
-        callback && callback(state.tableData)
+        callback && callback(state.tableData);
       }
     } else {
       // 校验未通过的prop
       rulesError.map((item: string | any[]) => {
         newArr.map(val => {
           if (item.includes(val)) {
-            propError.push(val)
+            propError.push(val);
           }
-        })
-      })
+        });
+      });
       // 去重获取校验未通过的prop--label
       Array.from(new Set(propError)).map(item => {
         renderColumns.value.map((val: { prop: unknown; label: any }) => {
           if (item === val.prop) {
-            propLabelError.push(val.label)
+            propLabelError.push(val.label);
           }
-        })
-      })
-      console.log("校验未通过的prop--label", propLabelError)
-      emits("validateError", propLabelError)
+        });
+      });
+      console.log("校验未通过的prop--label", propLabelError);
+      emits("validateError", propLabelError);
     }
-  }, 300)
-}
+  }, 300);
+};
 // 清空复选框
 const clearSelection = () => {
-  return TTable.value.clearSelection()
-}
+  return TTable.value.clearSelection();
+};
 // 返回当前选中的行
 const getSelectionRows = () => {
-  return TTable.value.getSelectionRows()
-}
+  return TTable.value.getSelectionRows();
+};
 // 取消某一项选中项
 const toggleRowSelection = (row: any, selected = false) => {
-  return TTable.value.toggleRowSelection(row, selected)
-}
+  return TTable.value.toggleRowSelection(row, selected);
+};
 // 全部选中
 const toggleAllSelection = () => {
-  return TTable.value.toggleAllSelection()
-}
+  return TTable.value.toggleAllSelection();
+};
 // 用于可扩展的表格或树表格，如果某行被扩展，则切换。 使用第二个参数，您可以直接设置该行应该被扩展或折叠。
 const toggleRowExpansion = (row: any, expanded: any) => {
-  return TTable.value.toggleRowExpansion(row, expanded)
-}
+  return TTable.value.toggleRowExpansion(row, expanded);
+};
 // 用于单选表格，设定某一行为选中行， 如果调用时不加参数，则会取消目前高亮行的选中状态。
 const setCurrentRow = (row: any) => {
-  return TTable.value.setCurrentRow(row)
-}
+  return TTable.value.setCurrentRow(row);
+};
 // 清空排序条件
 const clearSort = () => {
-  return TTable.value.clearSort()
-}
+  return TTable.value.clearSort();
+};
 // 传入由columnKey 组成的数组以清除指定列的过滤条件。 如果没有参数，清除所有过滤器
 const clearFilter = (columnKey: any) => {
-  return TTable.value.clearFilter(columnKey)
-}
+  return TTable.value.clearFilter(columnKey);
+};
 //  Table 进行重新布局
 const doLayout = (columnKey: any) => {
-  return TTable.value.doLayout(columnKey)
-}
+  return TTable.value.doLayout(columnKey);
+};
 //  手动排序表格。 参数 prop 属性指定排序列，order 指定排序顺序。
 const sort = (prop: string, order: string) => {
-  return TTable.value.sort(prop, order)
-}
+  return TTable.value.sort(prop, order);
+};
 //  滚动到一组特定坐标。
 const scrollTo = (options: any, yCoord: any) => {
-  return TTable.value.scrollTo(options, yCoord)
-}
+  return TTable.value.scrollTo(options, yCoord);
+};
 //  设置垂直滚动位置
 const setScrollTop = (top: any) => {
-  return TTable.value.setScrollTop(top)
-}
+  return TTable.value.setScrollTop(top);
+};
 //  设置水平滚动位置
 const setScrollLeft = (left: any) => {
-  return TTable.value.setScrollLeft(left)
-}
+  return TTable.value.setScrollLeft(left);
+};
 
 // 清空校验规则
 const clearValidate = () => {
-  const refList = Object.keys(formRef.value).filter(item => item.includes("formRef"))
+  const refList = Object.keys(formRef.value).filter(item => item.includes("formRef"));
   refList.length > 0 &&
     refList.map(val => {
-      formRef.value[val].clearValidate()
-    })
-}
+      formRef.value[val].clearValidate();
+    });
+};
 // 表单进行重置并移除校验结果
 const resetFields = () => {
-  const refList = Object.keys(formRef.value).filter(item => item.includes("formRef"))
+  const refList = Object.keys(formRef.value).filter(item => item.includes("formRef"));
   refList.length > 0 &&
     refList.map(val => {
-      formRef.value[val].resetFields()
-    })
+      formRef.value[val].resetFields();
+    });
   // 重置下拉表格
-  const refEditList = Object.keys(editTableRef.value).filter(item => item.includes("singleEditRef"))
+  const refEditList = Object.keys(editTableRef.value).filter(item =>
+    item.includes("singleEditRef")
+  );
   refEditList.length > 0 &&
     refEditList.map(val => {
-      editTableRef.value[val].resetTselectTableFields()
-    })
-}
+      editTableRef.value[val].resetTselectTableFields();
+    });
+};
 // 获取columnSet缓存数据
 const reSetColumnSet = () => {
-  return columnSetRef.value.reSetColumnSet()
-}
+  return columnSetRef.value.reSetColumnSet();
+};
 // 暴露方法出去
 defineExpose({
   defaultRadioSelect,
@@ -1044,7 +1046,7 @@ defineExpose({
   resetFields,
   saveMethod,
   reSetColumnSet
-})
+});
 </script>
 <style lang="scss" scoped>
 .t-table {

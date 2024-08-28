@@ -10,7 +10,7 @@
 </template>
 
 <script setup lang="ts" name="LwButton">
-import { ref } from "vue"
+import { ref } from "vue";
 const props = defineProps({
   time: {
     type: Number,
@@ -32,18 +32,18 @@ const props = defineProps({
     type: Boolean,
     default: true
   }
-})
+});
 // 抛出事件
-const emits = defineEmits(["click"])
-const record = ref(0)
+const emits = defineEmits(["click"]);
+const record = ref(0);
 const handleClick = () => {
-  if (!props.isDebounce) return emits("click")
-  const newTime = new Date()
+  if (!props.isDebounce) return emits("click");
+  const newTime = new Date();
   if (newTime.getTime() - record.value > props.time) {
-    emits("click")
+    emits("click");
   }
-  record.value = newTime.getTime()
-}
+  record.value = newTime.getTime();
+};
 </script>
 <style lang="scss" scoped>
 .lw-button-tip {

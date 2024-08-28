@@ -39,11 +39,11 @@
 </template>
 
 <script setup lang="ts" name="LwAdaptivePage">
-import LwLayoutPage from "../../layout-page/src/index.vue"
-import LwLayoutPageItem from "../../layout-page-item/src/index.vue"
-import LwTable from "../../table/src/index.vue"
-import LwQueryCondition from "../../query-condition/src/index.vue"
-import { getCurrentInstance, onMounted, ref, useSlots } from "vue"
+import LwLayoutPage from "../../layout-page/src/index.vue";
+import LwLayoutPageItem from "../../layout-page-item/src/index.vue";
+import LwTable from "../../table/src/index.vue";
+import LwQueryCondition from "../../query-condition/src/index.vue";
+import { getCurrentInstance, onMounted, ref, useSlots } from "vue";
 defineProps({
   leftWidth: {
     type: Number,
@@ -64,30 +64,30 @@ defineProps({
   },
   // 是否table自动撑满
   isTTableSelfFilling: Boolean
-})
-const slots = useSlots()
+});
+const slots = useSlots();
 // 判断是否使用漏了某个插槽
 const isShow = (name: string) => {
-  return Object.keys(slots).includes(name)
-}
+  return Object.keys(slots).includes(name);
+};
 // 获取实例方法
-const instance = getCurrentInstance() as any
+const instance = getCurrentInstance() as any;
 // 获取ref
-const TQueryConditionPage = ref<HTMLElement | null>(null) as any
-const TTablePage = ref<HTMLElement | null>(null) as any
+const TQueryConditionPage = ref<HTMLElement | null>(null) as any;
+const TTablePage = ref<HTMLElement | null>(null) as any;
 onMounted(() => {
   const exposedObj = {
     ...TQueryConditionPage.value.$.exposed,
     ...TTablePage.value.$.exposed
-  }
-  const entries = Object.entries(exposedObj)
+  };
+  const entries = Object.entries(exposedObj);
   // console.log('111', entries)
   for (const [key, value] of entries) {
-    instance.exposed[key] = value
+    instance.exposed[key] = value;
   }
   // console.log(789, instance)
-})
-defineExpose({ ...instance.exposed, TQueryConditionPage, TTablePage })
+});
+defineExpose({ ...instance.exposed, TQueryConditionPage, TTablePage });
 </script>
 <style lang="scss" scoped>
 .lw_adaptive_page {

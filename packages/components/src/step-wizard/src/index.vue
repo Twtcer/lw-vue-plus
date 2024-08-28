@@ -68,13 +68,13 @@
 </template>
 
 <script setup lang="ts" name="LwStepWizard">
-import { useSlots } from "vue"
+import { useSlots } from "vue";
 const props = defineProps({
   // 步骤数据
   stepData: {
     type: Array as unknown as any[],
     default: () => {
-      return []
+      return [];
     },
     required: true
   },
@@ -97,18 +97,18 @@ const props = defineProps({
     type: Boolean,
     default: true
   }
-})
-const slots = useSlots()
+});
+const slots = useSlots();
 const stepContent = () => {
   return props.isShowLastSuccess
     ? props.stepData && props.stepData.slice(0, props.stepData.length - 1)
-    : props.stepData
-}
-const emits = defineEmits(["complete"])
+    : props.stepData;
+};
+const emits = defineEmits(["complete"]);
 // 第四步完成
 const complete = () => {
-  emits("complete", props.active)
-}
+  emits("complete", props.active);
+};
 </script>
 <style lang="scss">
 .i_layout {

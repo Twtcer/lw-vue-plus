@@ -66,10 +66,10 @@
 </template>
 
 <script setup lang="ts" name="LwModuleForm">
-import { ref, useAttrs, useSlots, nextTick, computed } from "vue"
-import type { PropType } from "vue"
-import ModuleDetail from "./module-detail.vue"
-import ModuleForm from "./module-form.vue"
+import { ref, useAttrs, useSlots, nextTick, computed } from "vue";
+import type { PropType } from "vue";
+import ModuleDetail from "./module-detail.vue";
+import ModuleForm from "./module-form.vue";
 const props: any = defineProps({
   handleType: {
     type: String as PropType<"edit" | "desc">,
@@ -122,55 +122,55 @@ const props: any = defineProps({
   subTitle: String,
   tabs: Array as unknown as any[],
   submit: Function
-})
-const attrs: any = useAttrs()
-const slots = useSlots()
-const activeName = ref(props.tabs && props.tabs[0].key)
-const loading = ref(false)
+});
+const attrs: any = useAttrs();
+const slots = useSlots();
+const activeName = ref(props.tabs && props.tabs[0].key);
+const loading = ref(false);
 // 保存按钮配置
 const saveAttrs = computed(() => {
   return {
     type: "primary",
     btnTxt: "保存",
     ...props.btnSaveBind
-  }
-})
+  };
+});
 // 取消按钮配置
 const cancelAttrs = computed(() => {
-  return { btnTxt: "取消", ...props.btnCancelBind }
-})
+  return { btnTxt: "取消", ...props.btnCancelBind };
+});
 // 获取ref
-const tForm: any = ref<HTMLElement | null>(null)
+const tForm: any = ref<HTMLElement | null>(null);
 
 // 抛出事件
-const emits = defineEmits(["validateError", "back", "tabsChange"])
+const emits = defineEmits(["validateError", "back", "tabsChange"]);
 // 点击保存
 const saveHandle = async () => {
-  let form = {} as any
-  let formError = {} as any
-  let formOpts = {} as any
-  let successLength = 0
-  loading.value = true
+  let form = {} as any;
+  let formError = {} as any;
+  let formOpts = {} as any;
+  let successLength = 0;
+  loading.value = true;
   // 过滤非插槽表单
   Object.keys(attrs.formOpts).forEach(key => {
     if (attrs.formOpts[key].opts) {
-      formOpts[key] = attrs.formOpts[key]
+      formOpts[key] = attrs.formOpts[key];
     }
-  })
+  });
   Object.keys(formOpts).forEach(async formIndex => {
-    const { valid, formData } = await tForm.value.getChildRef(formIndex).selfValidate()
+    const { valid, formData } = await tForm.value.getChildRef(formIndex).selfValidate();
     if (valid) {
-      successLength = successLength + 1
-      form[formIndex] = attrs.formOpts[formIndex].opts.formData
+      successLength = successLength + 1;
+      form[formIndex] = attrs.formOpts[formIndex].opts.formData;
     }
-  })
+  });
   setTimeout(async () => {
     if (successLength === Object.keys(formOpts).length) {
       // 所有表单都校验成功
-      const isSuccess = await props.submit(form)
+      const isSuccess = await props.submit(form);
       if (isSuccess) {
         // 成功
-        back()
+        back();
       }
     } else {
       // 校验失败抛出事件
@@ -178,83 +178,83 @@ const saveHandle = async () => {
         if (Object.keys(form).length > 0) {
           Object.keys(form).map(val => {
             if (key !== val) {
-              formError[key] = formOpts[key]
+              formError[key] = formOpts[key];
             }
-          })
+          });
         } else {
-          formError[key] = formOpts[key]
+          formError[key] = formOpts[key];
         }
-      })
-      emits("validateError", formError)
+      });
+      emits("validateError", formError);
     }
-    loading.value = false
-  }, 300)
-}
+    loading.value = false;
+  }, 300);
+};
 // 点击头部返回或者取消
 const back = () => {
   if (props.isShowBack) {
-    return
+    return;
   }
-  emits("back")
+  emits("back");
   if (!props.isGoBackEvent) {
-    history.go(-1)
+    history.go(-1);
   }
-}
+};
 const show = (formType: any) => {
   nextTick(() => {
-    updateFormFields()
-    props.formType = formType
-  })
-}
+    updateFormFields();
+    props.formType = formType;
+  });
+};
 // 获取默认选中tab
 const setSelectedTab = (key: any) => {
-  activeName.value = key
-}
+  activeName.value = key;
+};
 // 切换tab
 const tabsChange = (tab: any) => {
-  emits("tabsChange", tab)
-}
+  emits("tabsChange", tab);
+};
 // 清空表单
 const resetFormFields = () => {
-  let formOpts = {} as any
+  let formOpts = {} as any;
   // 过滤非插槽表单
   Object.keys(attrs.formOpts).forEach(key => {
     if (attrs.formOpts[key].opts) {
-      formOpts[key] = attrs.formOpts[key]
+      formOpts[key] = attrs.formOpts[key];
     }
-  })
+  });
   Object.keys(formOpts).forEach(formIndex => {
-    tForm.value.getChildRef(formIndex).resetFields()
-  })
-}
+    tForm.value.getChildRef(formIndex).resetFields();
+  });
+};
 // 清空校验规则
 const clearValidate = () => {
-  let formOpts = {} as any
+  let formOpts = {} as any;
   // 过滤非插槽表单
   Object.keys(attrs.formOpts).forEach(key => {
     if (attrs.formOpts[key].opts) {
-      formOpts[key] = attrs.formOpts[key]
+      formOpts[key] = attrs.formOpts[key];
     }
-  })
+  });
   Object.keys(formOpts).forEach(formIndex => {
-    tForm.value.getChildRef(formIndex).clearValidate()
-  })
-}
+    tForm.value.getChildRef(formIndex).clearValidate();
+  });
+};
 const updateFormFields = () => {
-  let formOpts = {} as any
+  let formOpts = {} as any;
   // 过滤非插槽表单
   Object.keys(attrs.formOpts).forEach(key => {
     if (attrs.formOpts[key].opts) {
-      formOpts[key] = attrs.formOpts[key]
+      formOpts[key] = attrs.formOpts[key];
     }
-  })
+  });
   Object.keys(formOpts).forEach(formIndex => {
-    tForm.value.getChildRef(formIndex).updateFields(false)
-  })
-}
+    tForm.value.getChildRef(formIndex).updateFields(false);
+  });
+};
 const isShow = (name: string) => {
-  return Object.keys(slots).includes(name)
-}
+  return Object.keys(slots).includes(name);
+};
 // 暴露方法出去
 defineExpose({
   clearValidate,
@@ -262,7 +262,7 @@ defineExpose({
   updateFormFields,
   setSelectedTab,
   saveHandle
-})
+});
 </script>
 <style lang="scss">
 .t_module_form {

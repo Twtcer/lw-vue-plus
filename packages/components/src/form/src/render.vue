@@ -1,5 +1,5 @@
 <script lang="ts">
-import { defineComponent } from "vue"
+import { defineComponent } from "vue";
 export default defineComponent({
   name: "RenderComp",
   props: {
@@ -7,7 +7,7 @@ export default defineComponent({
     item: Object
   },
   render(ctx: { render: (arg0: any) => any; item: any }) {
-    return ctx.render(ctx?.item)
+    return ctx.render(ctx?.item);
   }
-})
+});
 </script>

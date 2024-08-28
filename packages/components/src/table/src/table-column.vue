@@ -62,14 +62,14 @@
 </template>
 
 <script setup lang="tsx" name="LwTableColumn">
-import SingleEditCell from "./single-edit-cell.vue"
-import RenderCol from "./render-col.vue"
-import { useSlots } from "vue"
+import SingleEditCell from "./single-edit-cell.vue";
+import RenderCol from "./render-col.vue";
+import { useSlots } from "vue";
 defineProps({
   item: {
     type: Object,
     default: () => {
-      return {}
+      return {};
     },
     required: true
   },
@@ -77,9 +77,9 @@ defineProps({
     type: String,
     default: "center"
   }
-})
+});
 // 抛出事件
-const emits = defineEmits(["handleEvent"])
+const emits = defineEmits(["handleEvent"]);
 // 获取所有插槽
-const slots = useSlots()
+const slots = useSlots();
 </script>

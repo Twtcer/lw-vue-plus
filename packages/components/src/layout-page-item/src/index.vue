@@ -9,7 +9,7 @@ defineProps({
     type: Boolean,
     default: false
   }
-})
+});
 </script>
 <style lang="scss" scoped>
 .t_layout_page_item {

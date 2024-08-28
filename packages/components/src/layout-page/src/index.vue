@@ -16,7 +16,7 @@
   </div>
 </template>
 <script setup lang="ts" name="LwLayoutPage">
-import { onActivated, onMounted, ref, watch } from "vue"
+import { onActivated, onMounted, ref, watch } from "vue";
 const props = defineProps({
   keepScrollDisabled: {
     type: Boolean,
@@ -36,43 +36,43 @@ const props = defineProps({
     type: Number,
     default: 100
   }
-})
-const isShowGoTopButton = ref(false)
+});
+const isShowGoTopButton = ref(false);
 
-const LayoutPageRef = ref(null)
-const scrollTop = ref(0)
+const LayoutPageRef = ref(null);
+const scrollTop = ref(0);
 watch(
   () => scrollTop.value,
   newVal => {
     if (newVal > props.scrollToTop) {
-      isShowGoTopButton.value = true
+      isShowGoTopButton.value = true;
     } else {
-      isShowGoTopButton.value = false
+      isShowGoTopButton.value = false;
     }
   }
-)
+);
 const backToTop = () => {
-  scrollTop.value = 0
-  ;(LayoutPageRef.value as any).scrollTop = 0
-}
+  scrollTop.value = 0;
+  (LayoutPageRef.value as any).scrollTop = 0;
+};
 onMounted(() => {
-  const pageItems = (LayoutPageRef.value as any).querySelectorAll(".t_layout_page_item")
+  const pageItems = (LayoutPageRef.value as any).querySelectorAll(".t_layout_page_item");
   if (pageItems.length === 2) {
-    pageItems[0].style.marginBottom = "8px"
+    pageItems[0].style.marginBottom = "8px";
   }
   if (pageItems.length > 2) {
     pageItems.forEach((item: any) => {
-      item.style.marginBottom = "8px"
-    })
-    pageItems[pageItems.length - 1].style.marginBottom = "0"
+      item.style.marginBottom = "8px";
+    });
+    pageItems[pageItems.length - 1].style.marginBottom = "0";
   }
-})
+});
 
 onActivated(() => {
   if (!props.keepScrollDisabled) {
-    ;(LayoutPageRef.value as any).scrollTop = scrollTop
+    (LayoutPageRef.value as any).scrollTop = scrollTop;
   }
-})
+});
 </script>
 
 <style lang="scss" scoped>

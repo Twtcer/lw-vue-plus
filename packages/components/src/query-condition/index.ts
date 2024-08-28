@@ -1,5 +1,5 @@
-import QueryCondition from "./src/index.vue"
-import { withInstall } from "@lw8/utils"
+import QueryCondition from "./src/index.vue";
+import { withInstall } from "@lw8/utils";
 
-const LwQueryCondition = withInstall(QueryCondition)
-export default LwQueryCondition
+const LwQueryCondition = withInstall(QueryCondition);
+export default LwQueryCondition;

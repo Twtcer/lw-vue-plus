@@ -87,7 +87,7 @@
 </template>
 
 <script setup lang="ts" name="SingleEditCell">
-import { computed, ref, watch } from "vue"
+import { computed, ref, watch } from "vue";
 const props = defineProps({
   /** 编辑配置项说明
    * label: '爱好', // placeholder显示
@@ -125,40 +125,40 @@ const props = defineProps({
   },
   // 列for index
   indexColumns: [String, Number]
-})
+});
 // 抛出事件
-const emits = defineEmits(["handleEvent", "update:modelValue", "keyupHandle"])
+const emits = defineEmits(["handleEvent", "update:modelValue", "keyupHandle"]);
 // vue3 v-model简写
 let childValue: any = computed({
   get() {
-    return props?.modelValue
+    return props?.modelValue;
   },
   set(val) {
-    emits("update:modelValue", val)
+    emits("update:modelValue", val);
   }
-})
+});
 watch(
   () => props.modelValue,
   data => {
-    childValue.value = data
+    childValue.value = data;
   }
-)
+);
 // 绑定的相关事件
 const handleEvent = (type: string) => {
   setTimeout(() => {
     // console.log("组件", type, childValue.value)
-    emits("handleEvent", { type, val: childValue.value })
-  }, 0)
-}
+    emits("handleEvent", { type, val: childValue.value });
+  }, 0);
+};
 // 键盘事件
 const keyUpHandle = ($event: any) => {
-  emits("keyupHandle", $event, props.scope.$index, props.prop)
-}
+  emits("keyupHandle", $event, props.scope.$index, props.prop);
+};
 // 引用第三方事件
 const cEvent: any = computed(() => {
   return ({ eventHandle }: any, type = "") => {
-    let event = { ...eventHandle }
-    let changeEvent = {} as any
+    let event = { ...eventHandle };
+    let changeEvent = {} as any;
     Object.keys(event).forEach(v => {
       changeEvent[v] = (e: any, ids: any) => {
         if (type === "t-select-table") {
@@ -167,58 +167,58 @@ const cEvent: any = computed(() => {
             ids: ids,
             prop: props.prop,
             scope: props.scope
-          }
-          event[v] && event[v](argument)
+          };
+          event[v] && event[v](argument);
         } else {
           if ((typeof e === "number" && e === 0) || e) {
-            event[v] && event[v]({ val: e, prop: props.prop, scope: props.scope })
+            event[v] && event[v]({ val: e, prop: props.prop, scope: props.scope });
           } else {
-            event[v] && event[v]({ prop: props.prop, scope: props.scope })
+            event[v] && event[v]({ prop: props.prop, scope: props.scope });
           }
         }
-      }
-    })
-    return { ...changeEvent }
-  }
-})
+      };
+    });
+    return { ...changeEvent };
+  };
+});
 const selectListType = computed(() => {
   return (item: { list: string | number }) => {
     if (props.listTypeInfo) {
-      return props.listTypeInfo[item.list]
+      return props.listTypeInfo[item.list];
     } else {
-      return []
+      return [];
     }
-  }
-})
+  };
+});
 // 子组件名称
 const compChildName = computed(() => {
   return (configEdit: { type: any }) => {
     switch (configEdit.type) {
       case "checkbox":
-        return "el-checkbox"
+        return "el-checkbox";
       case "radio":
-        return "el-radio"
+        return "el-radio";
       case "select-arr":
       case "select-obj":
-        return "el-option"
+        return "el-option";
     }
-  }
-})
+  };
+});
 // 子子组件label
 const compChildLabel = computed(() => {
   return (configEdit: { type: any; arrLabel: any }, value: { [x: string]: any; value: any }) => {
     switch (configEdit.type) {
       case "radio":
       case "checkbox":
-        return value.value
+        return value.value;
       case "el-select-multiple":
       case "select-arr":
-        return value[configEdit.arrLabel || "label"]
+        return value[configEdit.arrLabel || "label"];
       case "select-obj":
-        return value
+        return value;
     }
-  }
-})
+  };
+});
 // 子子组件value
 const compChildValue = computed(() => {
   return (
@@ -229,66 +229,66 @@ const compChildValue = computed(() => {
     switch (configEdit.type) {
       case "radio":
       case "checkbox":
-        return value.value
+        return value.value;
       case "el-select-multiple":
       case "select-arr":
-        return value[configEdit.arrKey || "key"]
+        return value[configEdit.arrKey || "key"];
       case "select-obj":
-        return key
+        return key;
     }
-  }
-})
+  };
+});
 // 子子组件文字展示
 const compChildShowLabel = computed(() => {
   return (configEdit: { type: any; arrLabel: any }, value: { [x: string]: any; label: any }) => {
     switch (configEdit.type) {
       case "radio":
       case "checkbox":
-        return value.label
+        return value.label;
       case "el-select-multiple":
       case "select-arr":
-        return value[configEdit.arrLabel || "label"]
+        return value[configEdit.arrLabel || "label"];
       case "select-obj":
-        return value
+        return value;
     }
-  }
-})
+  };
+});
 // 下拉选择表格组件 ref
-const tselecttableref: any = ref({})
+const tselecttableref: any = ref({});
 // 下拉选择表格组件 动态ref
 const handleRef = (el: any) => {
   if (el) {
-    tselecttableref.value[`tselecttableref-${props.indexColumns}`] = el
+    tselecttableref.value[`tselecttableref-${props.indexColumns}`] = el;
   }
-}
+};
 // 重置下拉表格
 const resetTselectTableFields = () => {
   // 获取所有下拉选择表格组件
   const refList = Object.keys(tselecttableref.value).filter(item =>
     item.includes("tselecttableref")
-  )
+  );
   if (refList.length > 0 && tselecttableref.value) {
     refList.map(val => {
-      tselecttableref.value[val].clear()
-    })
+      tselecttableref.value[val].clear();
+    });
   }
-}
+};
 // placeholder的显示
 const getPlaceholder = (row: any) => {
-  let placeholder
+  let placeholder;
   if (row.editComponent && typeof row.editComponent == "string") {
     if (row.editComponent.includes("input")) {
-      placeholder = "请输入" + row.label
+      placeholder = "请输入" + row.label;
     } else if (row.editComponent.includes("select") || row.editComponent.includes("date")) {
-      placeholder = "请选择" + row.label
+      placeholder = "请选择" + row.label;
     } else {
-      placeholder = row.label
+      placeholder = row.label;
     }
   }
-  return placeholder
-}
+  return placeholder;
+};
 
-defineExpose({ resetTselectTableFields })
+defineExpose({ resetTselectTableFields });
 </script>
 <style lang="scss">
 .single_edit_cell {

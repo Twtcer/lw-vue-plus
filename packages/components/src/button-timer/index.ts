@@ -1,5 +1,5 @@
-import ButtonTimer from "./src/index.vue"
-import { withInstall } from "@lw8/utils"
+import ButtonTimer from "./src/index.vue";
+import { withInstall } from "@lw8/utils";
 
-const LwButtonTimer = withInstall(ButtonTimer)
-export default LwButtonTimer
+const LwButtonTimer = withInstall(ButtonTimer);
+export default LwButtonTimer;

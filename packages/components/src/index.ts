@@ -1,22 +1,68 @@
-export * from "./layout-page/"
-export * from "./adaptive-page/"
-export * from "./layout-page-item/"
-export * from "./tabs/"
-export * from "./step-wizard/"
-export * from "./query-condition/"
-export * from "./module-form/"
-export * from "./detail/"
+import LwLayoutPage from "./layout-page";
+import LwAdaptivePage from "./adaptive-page";
+import LwLayoutPageItem from "./layout-page-item";
+import LwTabs from "./tabs";
+import LwStepWizard from "./step-wizard";
+import LwQueryCondition from "./query-condition";
+import LwModuleForm from "./module-form";
+import LwDetail from "./detail";
 
 // form
-export * from "./button/"
-export * from "./button-timer/"
-export * from "./form/"
-export * from "./radio/"
-export * from "./select/"
-export * from "./select-table/"
-export * from "./checkbox/"
+import LwButton from "./button";
+import lwTimerButton from "./button-timer";
+import LwForm from "./form";
+import LwRadio from "./radio";
+import LwSelect from "./select";
+import LwSelectTable from "./select-table";
+import LwCheckBox from "./checkbox";
+import LwDatePicker from "./date-picker";
 
 // table
-export * from "./table/"
+import LwTable from "./table"; 
 
-export * from "./chart/"
+import LwChart from "./chart"; 
+
+// 导出组件对象
+export {
+	LwAdaptivePage,
+	LwLayoutPage,
+	LwLayoutPageItem,
+	LwForm,
+	LwButton,
+	lwTimerButton,
+	LwRadio,
+	LwSelect,
+	LwSelectTable,
+	LwTable,
+	LwTabs,
+	LwStepWizard,
+	LwModuleForm,
+	LwQueryCondition,
+	LwCheckBox,
+	LwChart,
+	LwDetail,
+	LwDatePicker
+}
+
+// 导出组件列表
+export default [
+	LwAdaptivePage,
+	LwLayoutPage,
+	LwLayoutPageItem,
+	LwForm,
+	LwButton,
+	lwTimerButton,
+	LwRadio,
+	LwSelect,
+	LwSelectTable,
+	LwTable,
+	LwTabs,
+	LwStepWizard,
+	LwModuleForm,
+	LwQueryCondition,
+	LwCheckBox,
+	LwChart,
+	LwDetail,
+	LwDatePicker
+]
+

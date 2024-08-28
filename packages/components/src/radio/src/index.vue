@@ -20,9 +20,9 @@
 </template>
 
 <script setup lang="ts" name="LwRadio">
-import { computed, ref } from "vue"
-import type { PropType } from "vue"
-import type { OptionsProps } from "./radio"
+import { computed, ref } from "vue";
+import type { PropType } from "vue";
+import type { OptionsProps } from "./radio";
 
 // 定义组件属性，包括类型、默认值和校验规则
 const radioProps = defineProps({
@@ -48,16 +48,16 @@ const radioProps = defineProps({
     type: Object,
     default: () => ({})
   }
-})
+});
 
 // 根据type属性计算出应使用的radio组件类型
 const radioType = computed(() => {
   const obj = {
     radio: "el-radio",
     button: "el-radio-button"
-  }
-  return obj[radioProps.type] ?? "el-radio"
-})
+  };
+  return obj[radioProps.type] ?? "el-radio";
+});
 
 // 合并默认的选项属性和用户自定义的属性
 const optionsProps = ref<OptionsProps>({
@@ -67,5 +67,5 @@ const optionsProps = ref<OptionsProps>({
     disabled: "disabled"
   },
   ...radioProps.props
-})
+});
 </script>

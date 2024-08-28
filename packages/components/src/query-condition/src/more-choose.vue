@@ -42,7 +42,7 @@
   </el-popover>
 </template>
 <script setup lang="ts" name="MoreChoose">
-import { ref, watch } from "vue"
+import { ref, watch } from "vue";
 const props = defineProps({
   // 以下拉方式展示更多条件---数据源
   moreCheckList: {
@@ -53,81 +53,81 @@ const props = defineProps({
     type: Object,
     default: () => ({})
   }
-})
+});
 // 单选选中
-const checkList: any = ref([])
+const checkList: any = ref([]);
 // 已选中
-const isCheckList: any = ref([])
-const allcheckList: any = ref(props.moreCheckList)
-const emit = defineEmits(["getCheckList"])
+const isCheckList: any = ref([]);
+const allcheckList: any = ref(props.moreCheckList);
+const emit = defineEmits(["getCheckList"]);
 watch(
   () => props.moreCheckList,
   (list: any) => {
-    allcheckList.value = list
+    allcheckList.value = list;
   },
   { deep: true }
-)
+);
 watch(
   () => checkList,
   (nval: any, oval: any) => {
-    let list: any[] = []
+    let list: any[] = [];
     oval.value.forEach((ele: any) => {
       if (!nval.value.some((val: any) => val == ele)) {
-        list.push(ele)
+        list.push(ele);
       }
-    })
+    });
     isCheckList.value.forEach((ele: any, j: string | number) => {
       if (list.filter(val => val == ele.label)[0]) {
-        delete isCheckList.value[j]
+        delete isCheckList.value[j];
       }
-    })
+    });
   },
   { deep: true }
-)
+);
 // 全选
 const handlecheckAll = () => {
-  const allList = JSON.parse(JSON.stringify(allcheckList.value))
-  checkList.value = allList.map((item: any) => item.label)
+  const allList = JSON.parse(JSON.stringify(allcheckList.value));
+  checkList.value = allList.map((item: any) => item.label);
   // console.log('全选', checkList.value)
-  isCheckList.value = allList
-  const checkObj = analysisObj(isCheckList.value)
-  emit("getCheckList", checkObj)
-}
+  isCheckList.value = allList;
+  const checkObj = analysisObj(isCheckList.value);
+  emit("getCheckList", checkObj);
+};
 // 反选
 const handleReverseCheck = () => {
-  const deepCheckList = JSON.parse(JSON.stringify(checkList.value))
-  checkList.value = []
-  isCheckList.value = [] as any
+  const deepCheckList = JSON.parse(JSON.stringify(checkList.value));
+  checkList.value = [];
+  isCheckList.value = [] as any;
   allcheckList.value.forEach((ele: any) => {
     if (!deepCheckList.filter((item1: any) => item1 == ele.label)[0]) {
-      checkList.value.push(ele.label)
-      isCheckList.value.push(ele)
+      checkList.value.push(ele.label);
+      isCheckList.value.push(ele);
     }
-  })
-  const checkObj = analysisObj(isCheckList.value)
+  });
+  const checkObj = analysisObj(isCheckList.value);
   // console.log('反选', checkObj)
-  emit("getCheckList", checkObj)
-}
+  emit("getCheckList", checkObj);
+};
 // 清空
 const handleReset = () => {
   // console.log('清空')
-  checkList.value = []
-  isCheckList.value = []
-  emit("getCheckList", {})
-}
+  checkList.value = [];
+  isCheckList.value = [];
+  emit("getCheckList", {});
+};
 // 单选
 const getcheck = (val: any[]) => {
-  isCheckList.value = []
+  isCheckList.value = [];
   allcheckList.value.forEach((ele: { label: any }, j: any) => {
     if (val.filter(item1 => item1 == ele.label)[0]) {
-      isCheckList.value.push(ele)
+      isCheckList.value.push(ele);
     }
-  })
+  });
   // console.log("isCheckList---", isCheckList.value, checkList.value, val)
-  const checkObj = analysisObj(isCheckList.value)
+  const checkObj = analysisObj(isCheckList.value);
   // console.log("checkObj--222", checkObj)
-  emit("getCheckList", checkObj)
-}
+  emit("getCheckList", checkObj);
+};
 // 格式化
 const analysisObj = (val: any[]) => {
   return val.reduce((obj, item) => {
@@ -146,10 +146,10 @@ const analysisObj = (val: any[]) => {
       type: item?.type,
       isSelfCom: (item && item.isSelfCom) || false,
       defaultVal: item?.defaultVal
-    }
-    return obj
-  }, {})
-}
+    };
+    return obj;
+  }, {});
+};
 </script>
 <style lang="scss">
 .t_query_condition_more.el-popover {

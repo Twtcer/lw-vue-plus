@@ -22,21 +22,21 @@
   </div>
 </template>
 <script setup lang="ts" name="LwTabs">
-import { ref, useSlots } from "vue"
+import { ref, useSlots } from "vue";
 const props: any = defineProps({
   tabs: {
     type: Array as unknown as any[],
     default: () => {
-      return []
+      return [];
     }
   }
-})
-const slots = useSlots()
-const activeName: any = ref(props.tabs && props.tabs[0].key)
-const emit = defineEmits(["tabsChange"])
-const setSelectedTab = (key: any) => {
-  activeName.value = key
-}
+});
+const slots = useSlots();
+const activeName: any = ref(props.tabs && props.tabs[0].key);
+const emit = defineEmits(["tabsChange"]);
+// const setSelectedTab = (key: any) => {
+//   activeName.value = key;
+// };
 </script>
 <style lang="scss" scoped>
 .t_tabs {

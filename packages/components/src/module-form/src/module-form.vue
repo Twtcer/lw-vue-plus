@@ -45,7 +45,7 @@
 </template>
 
 <script setup lang="ts" name="ModuleForm">
-import { computed, ref, useAttrs, useSlots } from "vue"
+import { computed, ref, useAttrs, useSlots } from "vue";
 const props: any = defineProps({
   // 表单配置项
   formOpts: {
@@ -57,31 +57,31 @@ const props: any = defineProps({
     type: Boolean,
     default: false
   }
-})
-const dashboardRef = ref({}) as any
-const slots = useSlots()
-const attrs: any = useAttrs()
+});
+const dashboardRef = ref({}) as any;
+const slots = useSlots();
+const attrs: any = useAttrs();
 // 抛出ref
 const getChildRef = (index: string | number) => {
-  const childRef = dashboardRef.value[index]
-  return childRef
-}
+  const childRef = dashboardRef.value[index];
+  return childRef;
+};
 // 暴露方法出去
-defineExpose({ getChildRef })
+defineExpose({ getChildRef });
 const defaultActiveKey = computed({
   get() {
     // console.log(333, Object.keys(this.formOpts))
-    return Object.keys(props.formOpts)
+    return Object.keys(props.formOpts);
   },
   set(val) {
-    return val
+    return val;
   }
-})
+});
 // 抛出事件
-const emits = defineEmits(["handleEvent"])
+const emits = defineEmits(["handleEvent"]);
 const handleEvent = (val: any, type: any) => {
-  emits("handleEvent", val, type)
-}
+  emits("handleEvent", val, type);
+};
 </script>
 <style lang="scss">
 .t_form {

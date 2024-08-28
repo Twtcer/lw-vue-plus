@@ -27,8 +27,8 @@
 </template>
 
 <script setup lang="ts" name="columnSet">
-import Draggable from "vuedraggable"
-import { watch, onMounted, reactive, computed, useAttrs } from "vue"
+import Draggable from "vuedraggable";
+import { watch, onMounted, reactive, computed, useAttrs } from "vue";
 const props = defineProps({
   columns: {
     type: Array,
@@ -46,38 +46,40 @@ const props = defineProps({
     type: Object,
     default: () => {}
   }
-})
-const $attrs: any = useAttrs()
+});
+const $attrs: any = useAttrs();
 const columnBind = computed(() => {
-  const columnSetBind = { btnTxt: "列设置", title: "列设置", ...props.columnSetBind }
-  return { size: "default", icon: "Setting", ...$attrs, ...columnSetBind }
-})
+  const columnSetBind = { btnTxt: "列设置", title: "列设置", ...props.columnSetBind };
+  return { size: "default", icon: "Setting", ...$attrs, ...columnSetBind };
+});
 // 获取缓存数据
 const getColumnSetCache = () => {
-  let value: any = localStorage.getItem(`lw-vue-plus:TTable.columnSet-${props.name || props.title}`)
-  let columnOption = initColumnSet()
-  let valueArr = JSON.parse(value) || []
+  let value: any = localStorage.getItem(
+    `lw-vue-plus:TTable.columnSet-${props.name || props.title}`
+  );
+  let columnOption = initColumnSet();
+  let valueArr = JSON.parse(value) || [];
   columnOption.map(item => {
     let findEle = valueArr.find(
       (ele: { label: any; prop: any }) => ele.label === item.label && ele.prop === item.prop
-    )
-    item.hidden = findEle ? findEle.hidden : false
-  })
+    );
+    item.hidden = findEle ? findEle.hidden : false;
+  });
   initColumnSet().map(val => {
     columnOption.map(item => {
       if (Object.hasOwn(val, "isShowHidden")) {
         if (val.label === item.label && val.prop === item.prop && val.isShowHidden) {
-          item.hidden = val.isShowHidden
+          item.hidden = val.isShowHidden;
         }
         if (val.label === item.label && val.prop === item.prop && !val.isShowHidden) {
-          item.hidden = val.isShowHidden
+          item.hidden = val.isShowHidden;
         }
       }
-    })
-  })
-  value = JSON.stringify(columnOption)
-  return value ? JSON.parse(value) : initColumnSet()
-}
+    });
+  });
+  value = JSON.stringify(columnOption);
+  return value ? JSON.parse(value) : initColumnSet();
+};
 // 初始化
 const initColumnSet = () => {
   const columnSet = props.columns.map((col: any, index) =>
@@ -95,61 +97,61 @@ const initColumnSet = () => {
           checkBoxDisabled: false,
           hidden: false
         }
-  )
-  return columnSet
-}
+  );
+  return columnSet;
+};
 
 // 抛出事件
-const emits = defineEmits(["columnSetting"])
+const emits = defineEmits(["columnSetting"]);
 const state: any = reactive({
   columnSet: []
-})
+});
 onMounted(() => {
-  state.columnSet = getColumnSetCache()
+  state.columnSet = getColumnSetCache();
   // console.log('onMounted', state.columnSet)
-  emits("columnSetting", state.columnSet)
-})
+  emits("columnSetting", state.columnSet);
+});
 watch(
   () => state.columnSet,
   val => {
-    emits("columnSetting", val)
+    emits("columnSetting", val);
     // console.log(3333, val)
     localStorage.setItem(
       `lw-vue-plus:TTable.columnSet-${props.name || props.title}`,
       JSON.stringify(val)
-    )
+    );
   },
   { deep: true }
-)
+);
 // 重新赋值
 const reSetColumnSet = () => {
-  state.columnSet = getColumnSetCache()
-}
+  state.columnSet = getColumnSetCache();
+};
 // checkbox改变选中状态
 const checkChanged = (checked: any, index: string | number) => {
-  state.columnSet[index].hidden = !checked
-  let obj: any = {}
+  state.columnSet[index].hidden = !checked;
+  let obj: any = {};
   state.columnSet.map((val: { hidden: string }) => {
-    val.hidden in obj || (obj[val.hidden] = [])
-    obj[val.hidden].push(val.hidden)
-  })
+    val.hidden in obj || (obj[val.hidden] = []);
+    obj[val.hidden].push(val.hidden);
+  });
   if (obj.false.length < 2) {
     state.columnSet.map((val: { hidden: any }, key: string | number) => {
       if (!val.hidden) {
-        state.columnSet[key].checkBoxDisabled = true
+        state.columnSet[key].checkBoxDisabled = true;
       }
-    })
+    });
   } else {
     state.columnSet.map((val: { hidden: any }, key: string | number) => {
       if (!val.hidden) {
-        state.columnSet[key].checkBoxDisabled = false
+        state.columnSet[key].checkBoxDisabled = false;
       }
-    })
+    });
   }
-}
+};
 defineExpose({
   reSetColumnSet
-})
+});
 </script>
 <style lang="scss">
 .el-dropdown-menu {

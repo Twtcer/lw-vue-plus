@@ -59,7 +59,7 @@
 </template>
 
 <script setup lang="ts" name="LwSelect">
-import { computed, ref, useSlots } from "vue"
+import { computed, ref, useSlots } from "vue";
 const props: any = defineProps({
   modelValue: {
     type: [String, Number, Array]
@@ -107,7 +107,7 @@ const props: any = defineProps({
         pagerCount: 5, // 按钮数，超过时会折叠
         total: 0, // 总条数
         layout: "total, prev, pager, next, jumper"
-      }
+      };
     }
   },
   // 虚拟列表
@@ -119,71 +119,71 @@ const props: any = defineProps({
   width: {
     type: String
   }
-})
+});
 
-const selectRef = ref()
-const filteredOptionsCount = ref(1)
-const slots = useSlots()
+const selectRef = ref();
+const filteredOptionsCount = ref(1);
+const slots = useSlots();
 
-const emits = defineEmits(["update:modelValue", "change", "input", "select-input"])
+const emits = defineEmits(["update:modelValue", "change", "input", "select-input"]);
 const handleSelectInput = (e: any) => {
   if (props.usefilter) {
-    filteredOptionsCount.value = selectRef.value.filteredOptionsCount
+    filteredOptionsCount.value = selectRef.value.filteredOptionsCount;
   }
-  emits("select-input", e.target.value)
-}
+  emits("select-input", e.target.value);
+};
 
 let childSelectedValue: any = computed({
   get() {
-    return props.modelValue
+    return props.modelValue;
   },
   set(val) {
-    emits("update:modelValue", val)
+    emits("update:modelValue", val);
   }
-})
+});
 
 const handleChange = (val: any) => {
-  emits("change", val)
-}
+  emits("change", val);
+};
 
 // 全选
 const selectChecked = computed({
   get() {
-    const _val: any = props.modelValue
+    const _val: any = props.modelValue;
     const list = props.options.filter((item: { disabled: any }) => {
-      return !item.disabled
-    })
-    return _val.length === list.length
+      return !item.disabled;
+    });
+    return _val.length === list.length;
   },
   set(val: any) {
     const list = props.options.filter((item: { disabled: any }) => {
-      return !item.disabled
-    })
-    return val?.length === list.length
+      return !item.disabled;
+    });
+    return val?.length === list.length;
   }
-})
+});
 
 // 点选全部
 const selectAll = (val: any) => {
-  let options = JSON.parse(JSON.stringify(props.options))
+  let options = JSON.parse(JSON.stringify(props.options));
   // 筛选禁用选项
   options = options.filter((item: { disabled: any }) => {
-    return !item.disabled
-  })
+    return !item.disabled;
+  });
   if (val) {
     const selectedAllValue = options.map((item: { [x: string]: any }) => {
-      return item[props.valueCustom]
-    })
-    emits("update:modelValue", selectedAllValue)
+      return item[props.valueCustom];
+    });
+    emits("update:modelValue", selectedAllValue);
   } else {
-    emits("update:modelValue", null)
+    emits("update:modelValue", null);
   }
-}
+};
 
 const customLabelHandler = (_item: any) => {
-  let func = new Function("_item", `return ${props.customLabel}`)
-  return func(_item)
-}
+  let func = new Function("_item", `return ${props.customLabel}`);
+  return func(_item);
+};
 </script>
 
 <style scoped lang="scss">

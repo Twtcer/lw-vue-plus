@@ -1,9 +1,9 @@
-import { resolve } from 'path';
+import { resolve } from "path";
 
 //组件库根目录
-export const componentPath = resolve(__dirname, '../../');
+export const componentPath = resolve(__dirname, "../../");
 
 //pkg根目录
-export const pkgPath = resolve(__dirname, '../../../');
+export const pkgPath = resolve(__dirname, "../../../");
 
-export const rootPath = resolve(__dirname, '../../../../');
+export const rootPath = resolve(__dirname, "../../../../");

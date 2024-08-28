@@ -19,9 +19,9 @@
 </template>
 
 <script setup lang="ts" name="LwCheckbox">
-import { computed, ref } from "vue"
-import type { PropType } from "vue"
-import type { OptionsProps, CheckboxItem } from "./checkbox"
+import { computed, ref } from "vue";
+import type { PropType } from "vue";
+import type { OptionsProps, CheckboxItem } from "./checkbox";
 const checkProps = defineProps({
   type: {
     type: String as PropType<"check" | "button">,
@@ -45,14 +45,14 @@ const checkProps = defineProps({
     type: Object,
     default: () => ({})
   }
-})
+});
 const checkType = computed(() => {
   const obj = {
     check: "el-checkbox",
     button: "el-checkbox-button"
-  }
-  return obj[checkProps.type] ?? "el-checkbox"
-})
+  };
+  return obj[checkProps.type] ?? "el-checkbox";
+});
 const optionsProps = ref<OptionsProps>({
   ...{
     value: "value",
@@ -60,5 +60,5 @@ const optionsProps = ref<OptionsProps>({
     disabled: "disabled"
   },
   ...checkProps.props
-})
+});
 </script>

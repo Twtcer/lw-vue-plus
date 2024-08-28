@@ -17,24 +17,24 @@ export function formatNumber(
   suffix = ""
 ): string {
   if (Number(value) === 0) {
-    return Number(value).toFixed(precision)
+    return Number(value).toFixed(precision);
   }
   if (!value) {
-    return ""
+    return "";
   }
-  value = Number(value).toFixed(precision)
-  value += ""
-  const nums = value.split(".")
-  let integer = nums[0]
-  const decimals = nums.length > 1 ? decimal + nums[1] : ""
-  const reg = /(\d+)(\d{3})/
+  value = Number(value).toFixed(precision);
+  value += "";
+  const nums = value.split(".");
+  let integer = nums[0];
+  const decimals = nums.length > 1 ? decimal + nums[1] : "";
+  const reg = /(\d+)(\d{3})/;
   function isNumber(value: any) {
-    return Object.prototype.toString.call(value) === "[object Number]"
+    return Object.prototype.toString.call(value) === "[object Number]";
   }
   if (separator && !isNumber(separator)) {
     while (reg.test(integer)) {
-      integer = integer.replace(reg, "$1" + separator + "$2")
+      integer = integer.replace(reg, "$1" + separator + "$2");
     }
   }
-  return prefix + integer + decimals + suffix
+  return prefix + integer + decimals + suffix;
 }
