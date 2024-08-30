@@ -7,7 +7,7 @@ import LwQueryCondition from "./query-condition/src/index.vue";
 import LwModuleForm from "./module-form/src/index.vue";
 import LwDetail from "./detail/src/index.vue";
 
-// form 
+// form
 import LwButton from "./button/src/index.vue";
 import lwTimerButton from "./button-timer/src/index.vue";
 import LwForm from "./form/src/index.vue";
@@ -39,6 +39,6 @@ declare module "vue" {
     LwQueryCondition: typeof LwQueryCondition;
     LwCheckBox: typeof LwCheckBox;
     LwChart: typeof LwChart;
-    LwDetail: typeof LwDetail; 
+    LwDetail: typeof LwDetail;
   }
 }

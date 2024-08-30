@@ -1,13 +1,11 @@
-<template> 
- 
- <Input />
- <date-picker />
-
+<template>
+  <Input />
+  <date-picker />
 </template>
 
-<script setup lang="ts">  
-import Input from './components/input.vue';
-import DatePicker from './components/date-picker.vue';
+<script setup lang="ts">
+import Input from "./components/input.vue";
+import DatePicker from "./components/date-picker.vue";
 </script>
 
 <style scoped>

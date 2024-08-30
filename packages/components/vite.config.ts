@@ -5,12 +5,12 @@ import { resolve } from "path";
 import vueSetupExtend from "vite-plugin-vue-setup-extend"; // 设置name属性
 import dts from "vite-plugin-dts";
 import ElementPlus from "unplugin-element-plus/vite";
-// import AutoImport from "unplugin-auto-import/vite"; // 自动导入 
+// import AutoImport from "unplugin-auto-import/vite"; // 自动导入
 // import Components from "unplugin-vue-components/vite";
 // import { ElementPlusResolver } from "unplugin-vue-components/resolvers";
 // @ts-ignore
 // import DefineOptions from 'unplugin-vue-define-options/vite';
-import viteCompression from 'vite-plugin-compression' // 静态资源压缩
+import viteCompression from "vite-plugin-compression"; // 静态资源压缩
 // import {visualizer} from 'rollup-plugin-visualizer' // 打包后的视图文件
 
 // https://vitejs.dev/config/
@@ -23,31 +23,31 @@ export const getConfig = (): UserConfig => {
         useSource: true
       }),
       // AutoImport({
-      //   resolvers: [ElementPlusResolver()] 
+      //   resolvers: [ElementPlusResolver()]
       // }),
       // Components({
       //   resolvers: [ElementPlusResolver()]
-      // }), 
+      // }),
       dts({
         entryRoot: "src",
         outputDir: ["../dist/es/src", "../dist/lib/src"],
         tsConfigFilePath: "../../tsconfig.json"
       }),
       vueJsx(),
-      vueSetupExtend(), 
+      vueSetupExtend(),
       viteCompression({
         verbose: true,
         disable: false, // 不禁用压缩
         deleteOriginFile: false, // 压缩后是否删除原文件
         threshold: 10240, // 压缩前最小文件大小
-        algorithm: 'gzip', // 压缩算法
-        ext: '.gz', // 文件类型
-      }),
+        algorithm: "gzip", // 压缩算法
+        ext: ".gz" // 文件类型
+      })
 
       // visualizer({
       //   open: false
       // }),
-            // {
+      // {
       //   name: "style",
       //   generateBundle(config, bundle) {
       //     //这里可以获取打包后的文件目录以及代码code
@@ -121,7 +121,7 @@ export const getConfig = (): UserConfig => {
         entry: "./index.ts",
         name: "lw-vue-plus",
         // formats: ['es', 'umd'],
-        fileName: 'lw-vue-plus'
+        fileName: "lw-vue-plus"
       }
     }
   };

@@ -13,7 +13,10 @@
     "build": "vite build",
     "release": "release-it"
   },
-  "keywords": [],
+  "keywords": [
+    "commonn",
+    "utils"
+  ],
   "author": "landwind",
   "license": "MIT",
   "repository": {
